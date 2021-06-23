@@ -1,24 +1,66 @@
-import logo from './logo.svg';
+
 import './App.css';
+import Header from './components/Header';
+import Home from './pages/Home';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Checkout from './components/Checkout';
+import Login from './components/Login';
+import { auth } from './firebase/config';
+import { useContext, useEffect } from 'react';
+import { StateContext } from './context/StateContext';
+import Payment from './components/Payment';
 
 function App() {
+
+  const [{}, dispatch] = useContext(StateContext);
+
+  useEffect(() => {
+    console.log('In useeffect >>>>>>');
+
+    auth.onAuthStateChanged(authUser => {
+      console.log('User is >>>', authUser);
+
+      if(authUser){
+        //User is logged in
+        dispatch({
+          type: "SET_USER",
+          user: authUser
+        })
+      }
+      else{
+        //logged Out
+        dispatch({
+          type: "SET_USER",
+          user: null
+        })
+      }
+    })
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+        <Route path="/login">
+            <Login/> 
+          </Route>
+          <Route path="/checkout">
+            <Header />
+            <Checkout/>
+          </Route>
+          <Route path="/payment">
+            <Payment/>
+          </Route>
+          <Route path="/">
+            <Home />
+            
+            {/* <Header />
+            <Home /> */}
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+
   );
 }
 
