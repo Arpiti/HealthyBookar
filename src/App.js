@@ -9,6 +9,7 @@ import { auth } from './firebase/config';
 import { useContext, useEffect } from 'react';
 import { StateContext } from './context/StateContext';
 import Payment from './components/Payment';
+import SignIn from './pages/SignIn';
 
 function App() {
 
@@ -41,7 +42,7 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
-        <Route path="/login">
+        {/* <Route path="/login">
             <Login/> 
           </Route>
           <Route path="/checkout">
@@ -50,13 +51,14 @@ function App() {
           </Route>
           <Route path="/payment">
             <Payment/>
-          </Route>
-          <Route path="/">
+          </Route> */}
+          <Route path="/" exact>
             <Home />
-            
             {/* <Header />
             <Home /> */}
           </Route>
+          
+          <Route path="/signin" component={SignIn} exact />
         </Switch>
       </div>
     </Router>
