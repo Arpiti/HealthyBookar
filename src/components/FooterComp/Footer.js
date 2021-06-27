@@ -15,14 +15,14 @@ const Footer = () => {
                     <FooterLinksWrapper>
                         <FooterLinkItems>
                             <FooterLinkTitle> About Us </FooterLinkTitle>
-                            <FooterLink to="/signin">How it works</FooterLink>
+                            <FooterLink to="/signin">What do we do</FooterLink>
                             <FooterLink to="/signin">Careers</FooterLink>
                             <FooterLink to="/signin">Investors</FooterLink>
                             <FooterLink to="/signin">Services</FooterLink>
                             <FooterLink to="/signin">Terms of Service</FooterLink>
                         </FooterLinkItems>
                         <FooterLinkItems>
-                            <FooterLinkTitle> Nutrition </FooterLinkTitle>
+                            <FooterLinkTitle> Blogs </FooterLinkTitle>
                             <FooterLink to="/signin">To be Mother</FooterLink>
                             <FooterLink to="/signin">Just born Baby</FooterLink>
                             <FooterLink to="/signin">6 months to delivery</FooterLink>
@@ -37,20 +37,12 @@ const Footer = () => {
                             <FooterLink to="/signin">YouTube</FooterLink>
                             <FooterLink to="/signin">Twitter</FooterLink>
                         </FooterLinkItems>
-                        <FooterLinkItems>
-                            <FooterLinkTitle> About Us </FooterLinkTitle>
-                            <FooterLink to="/signin">How it works</FooterLink>
-                            <FooterLink to="/signin">Careers</FooterLink>
-                            <FooterLink to="/signin">Investors</FooterLink>
-                            <FooterLink to="/signin">Services</FooterLink>
-                            <FooterLink to="/signin">Terms of Service</FooterLink>
-                        </FooterLinkItems>
                     </FooterLinksWrapper>
                 </FooterLinksContainer>
 
                 <SocialMedia>
                     <SocialMediaWrap>
-                        <SocialLogo to="/">HealthyBookar</SocialLogo>
+                        <SocialLogo to="/">Healthy<span style={{color: '#01bf71'}}>Book</span>ar</SocialLogo>
                         <WebsiteRights>HealthyBookar © {new Date().getFullYear()} All rights reserved.</WebsiteRights>
                         <SocialIcons>
                             <SocialIconLink href="/" target="blank" aria-label="Facebook">

@@ -20,8 +20,8 @@ const Home = () => {
             <Navbar toggle={toggle}/>
             <HeroSection />
             <InfoSection {...homeObj1} />
-            <InfoSection {...homeObj2} />
             <Services />
+            <InfoSection {...homeObj2} />
             <InfoSection {...homeObj3} />
             <InfoSection {...homeObj4} />
             <Footer />
