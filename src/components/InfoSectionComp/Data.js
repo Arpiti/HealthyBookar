@@ -1,7 +1,6 @@
 import svg1 from '../../images/svg-1.svg';
 import svg2 from '../../images/about.svg';
 import svg3 from '../../images/6monthmotherhood.svg';
-
 import svg4 from '../../images/3month.svg';
 import svg5 from '../../images/babyFood.svg';
 
@@ -19,7 +18,8 @@ export const homeObj1 = {
     alt: 'choose food',
     dark: false,
     primary: false,
-    darkText: true
+    darkText: true,
+    multipleButtons: false
 };
 
 export const homeObj2 = {
@@ -36,7 +36,8 @@ export const homeObj2 = {
     alt: 'choose food',
     dark: false,
     primary: false,
-    darkText: true
+    darkText: true,
+    multipleButtons: false
 };
 
 export const homeObj3 = {
@@ -53,7 +54,8 @@ export const homeObj3 = {
     alt: '6 month plan subscription',
     dark: true,
     primary: true,
-    darkText: false
+    darkText: false,
+    multipleButtons: false
 };
 
 export const homeObj4 = {
@@ -70,5 +72,7 @@ export const homeObj4 = {
     alt: 'Baby food subscription',
     dark: false,
     primary: false,
-    darkText: true
+    darkText: true,
+    multipleButtons: true
+
 };

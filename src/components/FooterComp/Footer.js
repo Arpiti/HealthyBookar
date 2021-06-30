@@ -4,9 +4,15 @@ import {
     FooterContainer, FooterWrap, FooterLinksContainer, FooterLinksWrapper,
     FooterLinkItems, FooterLinkTitle, FooterLink, SocialIconLink, WebsiteRights, SocialIcons, SocialLogo, SocialMedia, SocialMediaWrap
 } from './FooterElements'
-
+import { animateScroll as scroll } from 'react-scroll';
 
 const Footer = () => {
+
+    const toggleHome = () => {
+        scroll.scrollToTop();
+    }
+
+
     return (
         <FooterContainer>
             <FooterWrap>
@@ -42,7 +48,7 @@ const Footer = () => {
 
                 <SocialMedia>
                     <SocialMediaWrap>
-                        <SocialLogo to="/">Healthy<span style={{color: '#01bf71'}}>Book</span>ar</SocialLogo>
+                        <SocialLogo to="/" onClick={toggleHome}>Healthy<span style={{color: '#01bf71'}}>Book</span>ar</SocialLogo>
                         <WebsiteRights>HealthyBookar © {new Date().getFullYear()} All rights reserved.</WebsiteRights>
                         <SocialIcons>
                             <SocialIconLink href="/" target="blank" aria-label="Facebook">

@@ -9,7 +9,8 @@ import { auth } from './firebase/config';
 import { useContext, useEffect } from 'react';
 import { StateContext } from './context/StateContext';
 import Payment from './components/Payment';
-import SignIn from './pages/SignIn';
+import SignIn from './pages/SignInPage';
+import FaqPage from './pages/FaqPage';
 
 function App() {
 
@@ -59,6 +60,7 @@ function App() {
           </Route>
           
           <Route path="/signin" component={SignIn} exact />
+          <Route path="/faq" component={FaqPage} exact />
         </Switch>
       </div>
     </Router>
