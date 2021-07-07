@@ -2,20 +2,20 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const AccordianContainer = styled.div`
-    background-image: linear-gradient(to top, #1c1c1c 0%, #fff 100%);
     padding: 4rem;
 `;
 
-export const AccordianHeader = styled.h1`
-    font-size: 3rem;
+export const AccordianTitleAndBackBtnWrap = styled.div`
+    display: flex;
+    justify-content: center;
     text-align: center;
-    padding-bottom: 3rem;
+    align-items: center;
+    margin-bottom: 2rem;
+`;
 
-     &:hover {
-        color: #01bf71;
-        transition: .5s ease-out;
-    }
-    
+export const AccordianHeader = styled.h1`
+    font-size: 2rem;
+    padding: 1rem;
 `;
 
 export const AccordianSection = styled.div`
@@ -29,13 +29,23 @@ export const AccordianSection = styled.div`
 
 export const AccordianBackButton = styled(Link)`
     color: #000;
-    font-size: 55px;
-    text-align: center;
-
+    font-size: 50px;
+    padding: 0rem;
     &:hover {
         color: #01bf71;
         transition: .5s ease-out;
     }
+
+    position: absolute;
+    top: 10rem;
+    left: 4rem;
+
+    @media screen and (max-width: 960px){
+        top: 6rem;
+        left: 3rem;
+    }
+
+    
 
 ;`
 

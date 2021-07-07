@@ -11,6 +11,7 @@ import { StateContext } from './context/StateContext';
 import Payment from './components/Payment';
 import SignIn from './pages/SignInPage';
 import FaqPage from './pages/FaqPage';
+import SubscribePage from './pages/CreateSubscription';
 
 function App() {
 
@@ -61,6 +62,7 @@ function App() {
           
           <Route path="/signin" component={SignIn} exact />
           <Route path="/faq" component={FaqPage} exact />
+          <Route path="/subscribe" component={SubscribePage} exact />
         </Switch>
       </div>
     </Router>

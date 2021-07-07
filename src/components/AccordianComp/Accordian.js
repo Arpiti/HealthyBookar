@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Data } from './Data';
 import { IconContext } from 'react-icons';
 import { FiPlus, FiMinus } from 'react-icons/fi';
-import { AccordianContainer, AccordianSection, Container, Wrap, Dropdown, AccordianHeader, AccordianBackButton } from './AccordianElements';
+import { AccordianContainer, AccordianSection, Container, Wrap, Dropdown, AccordianHeader, AccordianBackButton, AccordianTitleAndBackBtnWrap } from './AccordianElements';
 import { HiArrowLeft as BackArrowIcon } from 'react-icons/hi';
 
 const Accordian = () => {
@@ -19,11 +19,14 @@ const Accordian = () => {
     return (
         <>
             <AccordianContainer>
-                    
-                       <AccordianBackButton to="/">
-                          <BackArrowIcon />
-                        </AccordianBackButton>
+
+                <AccordianTitleAndBackBtnWrap>
+                    <AccordianBackButton to="/">
+                        <BackArrowIcon />
+                    </AccordianBackButton>
                     <AccordianHeader> Frequently Asked Questions </AccordianHeader>
+                </AccordianTitleAndBackBtnWrap>
+
 
                 <IconContext.Provider value={{ color: '#01bf71', size: '25px' }}>
                     <AccordianSection>
