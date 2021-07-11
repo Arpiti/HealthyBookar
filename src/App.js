@@ -12,25 +12,41 @@ import Payment from './components/Payment';
 import SignIn from './pages/SignInPage';
 import FaqPage from './pages/FaqPage';
 import SubscribePage from './pages/CreateSubscription';
+import ForgotPasswordPage from './pages/ForgotPassword';
+import SignUp from './components/SignInComp/SignUp';
 
 function App() {
 
-  const [{}, dispatch] = useContext(StateContext);
+  const [{userNameEntered}, dispatch] = useContext(StateContext);
 
   useEffect(() => {
-    console.log('In useeffect >>>>>>');
-
     auth.onAuthStateChanged(authUser => {
-      console.log('User is >>>', authUser);
+      //console.log('Username entered is >>>', userNameEntered);
 
-      if(authUser){
+      if (authUser) {
         //User is logged in
+
+        // adding username to the authuser Displayname if the account is created using Forms with Name out of Name column
+        if (authUser.displayName === null || authUser.displayName === 'undefined') {
+        
+          //console.log('authUser display namusere is null >>', authUser.displayName);
+          authUser.updateProfile({
+            displayName: `${userNameEntered}`,
+          }).then(() => {
+            // Update successful
+             //console.log('User after update is >>>', authUser.displayName);
+            // ...
+          }).catch((error) => {
+            // An error occurred
+            // ...
+          });
+        }
         dispatch({
           type: "SET_USER",
           user: authUser
         })
       }
-      else{
+      else {
         //logged Out
         dispatch({
           type: "SET_USER",
@@ -44,7 +60,7 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
-        {/* <Route path="/login">
+          {/* <Route path="/login">
             <Login/> 
           </Route>
           <Route path="/checkout">
@@ -59,10 +75,12 @@ function App() {
             {/* <Header />
             <Home /> */}
           </Route>
-          
+
           <Route path="/signin" component={SignIn} exact />
           <Route path="/faq" component={FaqPage} exact />
           <Route path="/subscribe" component={SubscribePage} exact />
+          <Route path="/forgotPassword" component={ForgotPasswordPage} exact />
+          <Route path="/signup" component={SignUp} exact />
         </Switch>
       </div>
     </Router>

@@ -1,33 +1,64 @@
-import React from 'react'
-import { ServicesContainer, ServicesWrapper, ServicesH1, ServicesCard, ServicesH2, ServicesIcon, ServicesP, ServicesTopLine } from './ServicesElements';
-import Icon1 from '../../images/3_month_image.png';
-import Icon2 from '../../images/6_month_image.png';
-import Icon3 from '../../images/baby.png';
+import React from 'react';
+import { ServicesContainer, ServicesWrapper, ServicesH1, ServicesCard, ServicesH2, ServicesIcon, ServicesP, ServicesTopLine, ServicesCardWrap } from './ServicesElements';
+import { useStateValue } from '../../context/StateContext';
 
+function Services({ servicesData }) {
 
-function Services() {
+    const [state, dispatch] = useStateValue();
+
+   function addToBasket(item) {
+
+       // dispatch the item into the data layer
+        dispatch({
+            type: "ADD_TO_BASKET",
+            item: {
+                id: item.id,
+                type: item.type,
+                subject: item.subject,
+                deliveryDone: item.deliverDone,
+                eatPreference: item.eatPreference,
+                planDurationMother: item.planDurationMother,
+                planDurationNewBorn: item.planDurationNewBorn,
+                breakFastRequired: item.breakFastRequired,
+                lunchRequired: item.lunchRequired,
+                dinnerRequired: item.dinnerRequired,
+                price: item.price
+            }
+        })
+    }
+
     return (
         <ServicesContainer id="services">
-            <ServicesTopLine>Our Offerings</ServicesTopLine>
-            <ServicesH1>Food Subscriptions</ServicesH1>
+            <ServicesTopLine>{servicesData.topLine}</ServicesTopLine>
+            <ServicesH1>{servicesData.mainHeading}</ServicesH1>
             <ServicesWrapper>
-                <ServicesCard>
-                    <ServicesIcon src={Icon1} />
-                    <ServicesH2>3 months</ServicesH2>
-                    <ServicesP> Nutriotious food for <strong>mothers</strong> to keep them healthy and strong in their motherhood.</ServicesP>
-                </ServicesCard>
-                <ServicesCard>
-                    <ServicesIcon src={Icon2} />
-                    <ServicesH2>6 months</ServicesH2>
-                    <ServicesP> Nutriotious food for <strong>mothers</strong> to keep them healthy and strong in their motherhood.</ServicesP>
-                </ServicesCard>
-                <ServicesCard>
-                    <ServicesIcon src={Icon3} />
-                    <ServicesH2>Baby Food</ServicesH2>
-                    <ServicesP> Nutriotious food for <strong>babies</strong> to help them build the immunity and be fit like their parents.</ServicesP>
-                </ServicesCard>
+
+                <ServicesCardWrap onClick={() => addToBasket(servicesData.item1)} to={servicesData.cardLink1}>
+                    <ServicesCard>
+                        <ServicesIcon src={servicesData.cardIcon1} />
+                        <ServicesH2>{servicesData.cardHeading1}</ServicesH2>
+                        <ServicesP> {servicesData.cardInfo1}</ServicesP>
+                    </ServicesCard>
+                </ServicesCardWrap>
+
+                <ServicesCardWrap onClick={() => addToBasket(servicesData.item2)} to={servicesData.cardLink2}>
+                    <ServicesCard>
+                        <ServicesIcon src={servicesData.cardIcon2} />
+                        <ServicesH2>{servicesData.cardHeading2}</ServicesH2>
+                        <ServicesP> {servicesData.cardInfo2}</ServicesP>
+                    </ServicesCard>
+                </ServicesCardWrap>
+
+                <ServicesCardWrap onClick={() => addToBasket(servicesData.item3)} to={servicesData.cardLink3}>
+                    <ServicesCard>
+                        <ServicesIcon src={servicesData.cardIcon3} />
+                        <ServicesH2>{servicesData.cardHeading3}</ServicesH2>
+                        <ServicesP> {servicesData.cardInfo3}</ServicesP>
+                    </ServicesCard>
+                </ServicesCardWrap>
+                
             </ServicesWrapper>
-            
+
         </ServicesContainer>
     )
 }

@@ -13,10 +13,13 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Button, Paper, StepContent, StepLabel, Stepper, TextField, Typography, Step } from '@material-ui/core';
-import Divider from '@material-ui/core/Divider';
+
 import PreferenceForm from './PreferenceForm';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
+
+import SubTotal from '../Subtotal';
+import { useStateValue } from '../../context/StateContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -142,7 +145,7 @@ const Form = () => {
                     </div>
 
 
-                    <CartContainer>
+                    {/* <CartContainer>
                         <FormWrap>
 
                             <PageH2>Total Amount</PageH2>
@@ -159,7 +162,9 @@ const Form = () => {
 
                         </FormWrap>
 
-                    </CartContainer>
+                    </CartContainer> */}
+
+                    <SubTotal />
 
                 </PageContainer>
 

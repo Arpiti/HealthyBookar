@@ -2,44 +2,42 @@ import React, { useState } from 'react'
 import { auth, fbProvider, googleProvider } from '../../firebase/config';
 
 import { useHistory } from 'react-router';
-import { Container, Form, FormButtonSubmit, FormContent, FormH1, FormInout, FormLabel, FormWrap, Icon, Text, FormButtonFacebookSignIn, FormButtonGoogleSignIn, FormButtonSignUp, FormLinkText } from './SignInElements'
-import RedirectDialogBox from './RedirectDialogBox';
+import { Container, Form, FormButtonSubmit, FormContent, FormH1, FormInout, FormLabel, FormWrap, Icon, Text, FormButtonFacebookSignIn, FormButtonGoogleSignIn } from './SignInElements'
+import { StateContext } from '../../context/StateContext';
 
-const SignIn = () => {
+export const SignUp = () => {
 
     const history = useHistory();
 
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSignIn = e => {
-        e.preventDefault();
-
-        //Firebase Sign In
-        auth
-            .signInWithEmailAndPassword(email, password)
-            .then((auth) => {
-                // console.log(auth)
-                if (auth) {
-                    history.push('/');
-                }
-            })
-            .catch(error => alert(error.message))
-    }
+    const [{}, dispatch] = React.useContext(StateContext);
+    
 
     const registerNewAccount = e => {
         e.preventDefault();
 
+
         //Firebase registration
         auth
             .createUserWithEmailAndPassword(email, password)
-            .then((auth) => {
+            .then((userCredential) => {
                 //  console.log(auth)
-                if (auth) {
+                //var user = userCredential.user;
+                if (userCredential) {
                     history.push('/');
                 }
             })
             .catch(error => alert(error.message))
+
+            console.log('name entered is >>', name);
+
+            dispatch({
+                type: "SET_USER_NAME",
+                userNameEntered: name
+              })
     }
 
     const registerWithGoogle = e => {
@@ -112,21 +110,6 @@ const SignIn = () => {
             });
     }
 
-    const passwordReset = () => {
-        console.log('in password reset for', email);
-        auth
-            .sendPasswordResetEmail(email)
-            .then(() => {
-                // Password reset email sent!
-                // ..
-                console.log('password reset mail sent')
-            })
-            .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // ..
-            });
-    }
 
     return (
         <>
@@ -135,17 +118,17 @@ const SignIn = () => {
                     <FormContent>
                         <Form action="#">
                             <Icon to="/">Healthy<span style={{ color: '#01bf71' }}>Book</span>ar</Icon>
-                            <FormH1>Sign in to your account</FormH1>
+                            <FormH1>Create new account</FormH1>
+                            <FormLabel htmlFor="for">Name</FormLabel>
+                            <FormInout type="text" required value={name} onChange={e => setName(e.target.value)} />
                             <FormLabel htmlFor="for">Email</FormLabel>
                             <FormInout type="email" required value={email} onChange={e => setEmail(e.target.value)} />
                             <FormLabel htmlFor="for">Password</FormLabel>
                             <FormInout type="password" requiredvalue={password} onChange={e => setPassword(e.target.value)} />
-                            <FormButtonSubmit type="submit" onClick={handleSignIn}> Submit</FormButtonSubmit>
-                            <FormLinkText to='/forgotPassword' onClick={passwordReset}> Forgot password? </FormLinkText>
+                            <FormButtonSubmit type="submit" onClick={registerNewAccount}> Register </FormButtonSubmit>
                             <Text> ----------- OR ----------- </Text>
-                            <FormButtonGoogleSignIn onClick={registerWithGoogle} type="submit">Sign in with Google</FormButtonGoogleSignIn>
-                            <FormButtonFacebookSignIn onClick={registerWithFacebook} type="submit">Sign in with Facebook</FormButtonFacebookSignIn>
-                            <FormButtonSignUp to="/signup">Create new Account</FormButtonSignUp>
+                            <FormButtonGoogleSignIn onClick={registerWithGoogle} type="submit">Sign up with Google</FormButtonGoogleSignIn>
+                            <FormButtonFacebookSignIn onClick={registerWithFacebook} type="submit">Sign up with Facebook</FormButtonFacebookSignIn>
                         </Form>
                     </FormContent>
                 </FormWrap>
@@ -155,4 +138,4 @@ const SignIn = () => {
     )
 }
 
-export default SignIn
+export default SignUp

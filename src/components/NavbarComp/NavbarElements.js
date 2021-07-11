@@ -139,3 +139,8 @@ export const NavBtnLink = styled(LinkR)`
         color: #010606;
     }
     `;
+
+    export const NavProfile = styled.h4`
+        color: white;
+        
+    `;

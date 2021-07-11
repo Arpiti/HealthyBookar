@@ -1,6 +1,8 @@
 import React from 'react';
 import { FaBars } from 'react-icons/fa';
 import { animateScroll as scroll } from 'react-scroll';
+import { useStateValue } from '../../context/StateContext';
+import { auth } from '../../firebase/config';
 
 import {
     Nav,
@@ -12,13 +14,23 @@ import {
     MobileIcon,
     NavBtn,
     NavBtnLink,
-    NavLinkRoute
+    NavLinkRoute,
+    NavProfile
 } from './NavbarElements'
 
 
 const Navbar = ({ toggle }) => {
+
+    const [{ basket, user }, dispatch] = useStateValue();
+
     const toggleHome = () => {
         scroll.scrollToTop();
+    }
+
+    const handleAuthentication = () => {
+        if (user) {
+            auth.signOut();
+        }
     }
 
     return (
@@ -62,15 +74,30 @@ const Navbar = ({ toggle }) => {
                                 exact='true'
                                 offset={-80}>FAQs</NavLinkRoute>
                         </NavItem>
+                        {user && <NavItem>
+                            <NavProfile>Hi {user.displayName}</NavProfile>
+                        </NavItem>}
                     </NavMenu>
-                    <NavBtn>
-                        <NavBtnLink to="/signin"
-                            smooth={true}
-                            duration={500}
-                            spy={true}
-                            exact='true'
-                            offset={-80}>Sign In</NavBtnLink>
+                    <NavBtn onClick={handleAuthentication}>
+                        {user ?
+
+                            <NavBtnLink
+                                smooth={true}
+                                duration={500}
+                                spy={true}
+                                exact='true'
+                                offset={-80}>Sign Out</NavBtnLink>
+                            :
+                            <NavBtnLink to="/signin"
+                                smooth={true}
+                                duration={500}
+                                spy={true}
+                                exact='true'
+                                offset={-80}>Sign In</NavBtnLink>
+
+                        }
                     </NavBtn>
+
                 </NavbarContainer>
             </Nav>
         </>
