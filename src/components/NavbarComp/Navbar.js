@@ -15,7 +15,8 @@ import {
     NavBtn,
     NavBtnLink,
     NavLinkRoute,
-    NavProfile
+    NavProfile,
+    NavBtnContainer
 } from './NavbarElements'
 
 
@@ -28,7 +29,7 @@ const Navbar = ({ toggle }) => {
     }
 
     const handleAuthentication = () => {
-        if (user) {
+        if(user){
             auth.signOut();
         }
     }
@@ -74,10 +75,10 @@ const Navbar = ({ toggle }) => {
                                 exact='true'
                                 offset={-80}>FAQs</NavLinkRoute>
                         </NavItem>
-                        {user && <NavItem>
-                            <NavProfile>Hi {user.displayName}</NavProfile>
-                        </NavItem>}
+                       
                     </NavMenu>
+                    <NavBtnContainer>
+                    { user && <NavProfile><em>Hi {user.displayName}</em></NavProfile>}
                     <NavBtn onClick={handleAuthentication}>
                         {user ?
 
@@ -97,7 +98,8 @@ const Navbar = ({ toggle }) => {
 
                         }
                     </NavBtn>
-
+                    </NavBtnContainer>
+                    
                 </NavbarContainer>
             </Nav>
         </>

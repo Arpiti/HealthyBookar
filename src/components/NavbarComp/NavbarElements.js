@@ -125,7 +125,7 @@ export const NavBtnLink = styled(LinkR)`
     border-radius: 50px;
     background: #01bf71;
     white-space: nowrap;
-    padding: 10px 22px;
+    padding: .5rem 22px;
     color: #010605;
     font-size: 16px;
     outline: none;
@@ -140,7 +140,15 @@ export const NavBtnLink = styled(LinkR)`
     }
     `;
 
+    export const NavBtnContainer = styled.div`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    `;
+
     export const NavProfile = styled.h4`
         color: white;
-        
+        padding: .25rem;
+
     `;

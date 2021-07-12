@@ -19,12 +19,18 @@ import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 
 import SubTotal from '../Subtotal';
-import { useStateValue } from '../../context/StateContext';
+
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+
+
+const STRIPE_PUBLISHABLE_KEY = 'pk_test_51JCAK2SDVEGR2R43nTb9DmfCC7dB40gEPlXED7JvcRQzHm3XlcbGZ8YApf3uk1jUZdA4yREIolYctuaPlf9qiJ2C00laxGxwxO';
+const promise = loadStripe(STRIPE_PUBLISHABLE_KEY);
 
 const useStyles = makeStyles((theme) => ({
     root: {
         minWidth: '60%',
-        paddingLeft: '2rem', 
+        paddingLeft: '2rem',
     },
     formControl: {
         margin: theme.spacing(1),
@@ -56,7 +62,11 @@ function getStepContent(step) {
         case 1:
             return <AddressForm />;
         case 2:
-            return <PaymentForm />;
+            return (
+                <Elements stripe={promise}>
+                    <PaymentForm />
+                </Elements>
+            )
         default:
             return 'Unknown step';
     }
@@ -100,52 +110,52 @@ const Form = () => {
         <>
 
             <PageWrapper>
-            <ThemeProvider theme={customGreenTheme}>
-            <PageH1>Create food subscription</PageH1>
-                <PageContainer>
-                    <div className={classes.root}>
-                        <Stepper activeStep={activeStep} orientation="vertical">
-                            {steps.map((label, index) => (
-                                <Step key={label}>
-                                    <StepLabel>{label}</StepLabel>
-                                    <StepContent>
-                                        <Typography>{getStepContent(index)}</Typography>
-                                        <div className={classes.actionsContainer}>
-                                            <div>
-                                                <Button
-                                                    disabled={activeStep === 0}
-                                                    onClick={handleBack}
-                                                    className={classes.button}
-                                                >
-                                                    Back
-                                                </Button>
-                
-                                                <Button
-                                                    variant="contained"
-                                                    color="primary"
-                                                    onClick={handleNext}
-                                                    className={classes.button}
-                                                >
-                                                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                                                </Button>
+                <ThemeProvider theme={customGreenTheme}>
+                    <PageH1>Create food subscription</PageH1>
+                    <PageContainer>
+                        <div className={classes.root}>
+                            <Stepper activeStep={activeStep} orientation="vertical">
+                                {steps.map((label, index) => (
+                                    <Step key={label}>
+                                        <StepLabel>{label}</StepLabel>
+                                        <StepContent>
+                                            <Typography>{getStepContent(index)}</Typography>
+                                            <div className={classes.actionsContainer}>
+                                                <div>
+                                                    <Button
+                                                        disabled={activeStep === 0}
+                                                        onClick={handleBack}
+                                                        className={classes.button}
+                                                    >
+                                                        Back
+                                                    </Button>
+
+                                                    <Button
+                                                        variant="contained"
+                                                        color="primary"
+                                                        onClick={handleNext}
+                                                        className={classes.button}
+                                                    >
+                                                        {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                                    </Button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </StepContent>
-                                </Step>
-                            ))}
-                        </Stepper>
-                        {activeStep === steps.length && (
-                            <Paper square elevation={0} className={classes.resetContainer}>
-                                <Typography>All steps completed - you&apos;re finished</Typography>
-                                <Button onClick={handleReset} className={classes.button}>
-                                    Reset
-                                </Button>
-                            </Paper>
-                        )}
-                    </div>
+                                        </StepContent>
+                                    </Step>
+                                ))}
+                            </Stepper>
+                            {activeStep === steps.length && (
+                                <Paper square elevation={0} className={classes.resetContainer}>
+                                    <Typography>All steps completed - you&apos;re finished</Typography>
+                                    <Button onClick={handleReset} className={classes.button}>
+                                        Reset
+                                    </Button>
+                                </Paper>
+                            )}
+                        </div>
 
 
-                    {/* <CartContainer>
+                        {/* <CartContainer>
                         <FormWrap>
 
                             <PageH2>Total Amount</PageH2>
@@ -164,11 +174,11 @@ const Form = () => {
 
                     </CartContainer> */}
 
-                    <SubTotal />
+                        <SubTotal />
 
-                </PageContainer>
+                    </PageContainer>
 
-            </ThemeProvider>
+                </ThemeProvider>
             </PageWrapper>
         </>
     )
