@@ -57,13 +57,14 @@ export const homeObj2 = {
         type: 'recommended',
         subject: MOTHER,
         deliveryDone: true,
-        eatPreference: 'vegetarian',
+        eatPreference: 'Vegetarian',
         planDurationMother: 3,
         planDurationNewBorn: null,
         breakFastRequired: true,
         lunchRequired: true,
         dinnerRequired: true,
-        price: 6000
+        price: 6000,
+        paused: false
     }
 };
 
@@ -96,7 +97,8 @@ export const homeObj3 = {
         breakFastRequired: true,
         lunchRequired: true,
         dinnerRequired: true,
-        price: 12000
+        price: 12000,
+        paused: false
     }
 };
 
@@ -129,6 +131,7 @@ export const homeObj4 = {
         breakFastRequired: true,
         lunchRequired: true,
         dinnerRequired: true,
-        price: 10000
+        price: 10000,
+        paused: false
     }
 };

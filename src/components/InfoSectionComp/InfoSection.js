@@ -20,14 +20,15 @@ const InfoSection = ({lightBg, name, imgStart, topLine, lightText, headline, dar
                 id: item.id,
                 type: item.type,
                 subject: item.subject,
-                deliveryDone: item.deliverDone,
+                deliveryDone: item.deliveryDone,
                 eatPreference: item.eatPreference,
                 planDurationMother: item.planDurationMother,
                 planDurationNewBorn: item.planDurationNewBorn,
                 breakFastRequired: item.breakFastRequired,
                 lunchRequired: item.lunchRequired,
                 dinnerRequired: item.dinnerRequired,
-                price: item.price
+                price: item.price,
+                paused: item.paused,
             }
         })
     }

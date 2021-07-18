@@ -31,7 +31,8 @@ export const servicesData = {
         breakFastRequired: true,
         lunchRequired: true,
         dinnerRequired: true,
-        price: 6000
+        price: 6000,
+        paused: false
     },
     cardIcon2: Icon2,
     cardHeading2: "6 months",
@@ -48,7 +49,8 @@ export const servicesData = {
         breakFastRequired: true,
         lunchRequired: true,
         dinnerRequired: true,
-        price: 12000
+        price: 12000,
+        paused: false
     },
     cardIcon3: Icon3,
     cardHeading3: "Baby Food",
@@ -65,6 +67,7 @@ export const servicesData = {
         breakFastRequired: true,
         lunchRequired: true,
         dinnerRequired: true,
-        price: 10000
+        price: 10000,
+        paused: false
     }
 }

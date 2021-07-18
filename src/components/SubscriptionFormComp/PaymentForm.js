@@ -5,6 +5,8 @@ import { StateContext } from '../../context/StateContext';
 import { Button } from '../ButtonElements';
 import axios from '../../axios';
 import { useHistory } from 'react-router-dom';
+import { db } from '../../firebase/config';
+import { useStateValue } from '../../context/StateContext';
 
 const PaymentForm = () => {
 
@@ -19,7 +21,9 @@ const PaymentForm = () => {
 
     const [clientSecret, setClientSecret] = useState(true);
 
-    const [{ basket }] = useContext(StateContext);
+    const [{ basket, user }] = useContext(StateContext);
+    const [state, dispatch] = useStateValue();
+
     const history = useHistory();
 
     useEffect(() => {
@@ -27,17 +31,22 @@ const PaymentForm = () => {
         //generate special stripe secret every time there's a change in the cart value
         const getClientSecret = async() => {
             const response = await axios({
+                // amount is multiplied by 100 as Stripes take payment in Indian paise.
                 method: 'post',
-                url: `/payments/create?total=${totalPrice}`
+                url: `/payments/create?total=${totalPrice*100}`
             });
             setClientSecret(response.data.clientSecret);
         }
         getClientSecret();
     }, [basket]);
 
+    console.log('The secret is >>', clientSecret);
+    
     const handleSubmit = async(e) => {
         e.preventDefault();
         setProcessing(true);
+
+       
 
          const payload = await stripe.confirmCardPayment(clientSecret, {
              payment_method: {
@@ -45,12 +54,28 @@ const PaymentForm = () => {
              }
          }).then(({paymentIntent}) => {
              //paymentIntent = payment confirmation
+             console.log('Basket is', basket);
+             const items = basket; 
+
+             db
+                .collection('users')
+                .doc(user?.uid)
+                .collection('orders')
+                .doc(paymentIntent.id)
+                .set({
+                    basket: basket[0],
+                    amount: paymentIntent.amount,
+                    created: paymentIntent.created
+                })
 
              setSucceeded(true);
              setError(null);
              setProcessing(null);
 
-             history.replaceState('/orders')
+             dispatch({
+                 type: 'EMPTY_BASKET'
+             })
+             history.replace('/order')
          }) 
     }
 

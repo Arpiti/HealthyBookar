@@ -9,11 +9,12 @@ import { auth } from './firebase/config';
 import { useContext, useEffect } from 'react';
 import { StateContext } from './context/StateContext';
 import Payment from './components/Payment';
-import SignIn from './pages/SignInPage';
+import SignInPage from './pages/SignInPage';
 import FaqPage from './pages/FaqPage';
 import SubscribePage from './pages/CreateSubscription';
 import ForgotPasswordPage from './pages/ForgotPassword';
-import SignUp from './components/SignInComp/SignUp';
+import SignUpPage from './components/SignInComp/SignUp';
+import OrderPage from './pages/OrderPage';
 
 
 
@@ -79,11 +80,12 @@ function App() {
             <Home /> */}
           </Route>
 
-          <Route path="/signin" component={SignIn} exact />
+          <Route path="/signin" component={SignInPage} exact />
           <Route path="/faq" component={FaqPage} exact />
           <Route path="/subscribe" component={SubscribePage} exact />
           <Route path="/forgotPassword" component={ForgotPasswordPage} exact />
-          <Route path="/signup" component={SignUp} exact />
+          <Route path="/signup" component={SignUpPage} exact />
+          <Route path="/order" component={OrderPage} exact />
         </Switch>
       </div>
     </Router>

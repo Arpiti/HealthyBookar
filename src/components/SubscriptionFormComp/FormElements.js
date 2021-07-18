@@ -4,7 +4,6 @@ import styled from "styled-components";
 export const PageWrapper = styled.div`
     background: #fff;
     height: 100%;
-  
 `;
 
 export const PageContainer = styled.div`
@@ -13,7 +12,7 @@ export const PageContainer = styled.div`
     align-items: center;
     padding: 2rem;
 
-    @media screen and (max-width: 820px) {
+    @media screen and (max-width: 1050px) {
         flex-direction: column;
     }
 `;
@@ -91,7 +90,7 @@ export const FormContainer = styled.div`
 export const FormWrap = styled.form`
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     position: relative;
     height: 100%;
@@ -175,4 +174,24 @@ export const FormBtn = styled.button`
         transition: all 0.2s ease-in-out;
         background:  ${({ primary }) => (primary ? '#fff' : '#01bf71')};
     }
+`;
+
+export const ImgWrap = styled.div`
+    margin-top: 5rem;
+    max-width: 600px;
+    min-width: 420px;
+    padding: 1rem;
+    height: 100%;
+`;
+
+export const Img = styled.img`
+    width: 100%;
+    margin: 0 30px 10px 0;
+    padding-right: 0;
+`;
+
+export const ImgAndTotalContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;

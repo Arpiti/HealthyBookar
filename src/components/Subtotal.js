@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import '../Subtotal.css';
 import CurrencyFormat from 'react-currency-format';
-import { StateContext } from '../context/StateContext';
 import { useHistory } from 'react-router';
+import { StateContext } from '../context/StateContext';
 
 const Subtotal = () => {
 
@@ -32,7 +32,7 @@ const Subtotal = () => {
 
             </CurrencyFormat>
 
-            <button className="subtotal__button" onClick={(e) => history.push('/payment')}> Proceed to Checkout </button>
+            <button className="subtotal__button"> Proceed to Checkout </button>
         </div>
     );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormWrap, PageH1, PageH4, FormInput, FormContainer, FormLabel, FormDropdown, FormRadioContainer, FormDropdownContainer, FormBtnContainer, FormBtn, FormDropdownItem, FormDropdownSelectedItem, FormInputRadio, PageContainer, CartContainer, CartAmount, CartText, CartBtn, CartCouponContainer, PageWrapper, PageH2 } from './FormElements';
+import { PageH1, PageContainer, PageWrapper, ImgWrap, Img, ImgAndTotalContainer } from './FormElements';
 import { HiArrowLeft as BackArrowIcon } from 'react-icons/hi';
 
 import FormControl from '@material-ui/core/FormControl';
@@ -12,32 +12,35 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { Button, Paper, StepContent, StepLabel, Stepper, TextField, Typography, Step } from '@material-ui/core';
+import { Button, Paper, StepContent, StepLabel, Stepper, Typography, Step } from '@material-ui/core';
 
-import PreferenceForm from './PreferenceForm';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 
-import SubTotal from '../Subtotal';
-
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
+
+import FORM_IMAGE from '../../images/form.svg';
+import Subtotal from './Subtotal';
+import PreferenceForm from './PreferenceForm';
+
 
 
 const STRIPE_PUBLISHABLE_KEY = 'pk_test_51JCAK2SDVEGR2R43nTb9DmfCC7dB40gEPlXED7JvcRQzHm3XlcbGZ8YApf3uk1jUZdA4yREIolYctuaPlf9qiJ2C00laxGxwxO';
 const promise = loadStripe(STRIPE_PUBLISHABLE_KEY);
 
+
 const useStyles = makeStyles((theme) => ({
     root: {
         minWidth: '60%',
-        paddingLeft: '2rem',
+        marginLeft: '3rem',
     },
     formControl: {
         margin: theme.spacing(1),
         color: '#01bbf71',
     },
     selectEmpty: {
-        marginTop: theme.spacing(2),
+        marginTop: theme.spacing(1),
     },
     button: {
         marginTop: theme.spacing(1),
@@ -55,10 +58,10 @@ function getSteps() {
     return ['Choose your preferences', 'Deliver to Address', 'Complete Payment'];
 }
 
-function getStepContent(step) {
+function getStepContent(step, setFormClicked) {
     switch (step) {
         case 0:
-            return <PreferenceForm />;
+            return <PreferenceForm setFormClicked={setFormClicked}/>;
         case 1:
             return <AddressForm />;
         case 2:
@@ -103,8 +106,11 @@ const Form = () => {
         setActiveStep(0);
     };
 
+    const [formClicked, setFormClicked] = React.useState(false);
+    const showPriceCalculateMessage = React.useMemo(() => formClicked,[formClicked])
 
-
+    console.log('formClicked in Form > ', formClicked);
+    console.log('showPriceCalculateMessage in Form > ', showPriceCalculateMessage);
 
     return (
         <>
@@ -113,13 +119,18 @@ const Form = () => {
                 <ThemeProvider theme={customGreenTheme}>
                     <PageH1>Create food subscription</PageH1>
                     <PageContainer>
+
+
+
+
+
                         <div className={classes.root}>
                             <Stepper activeStep={activeStep} orientation="vertical">
                                 {steps.map((label, index) => (
                                     <Step key={label}>
                                         <StepLabel>{label}</StepLabel>
                                         <StepContent>
-                                            <Typography>{getStepContent(index)}</Typography>
+                                            <Typography>{getStepContent(index , setFormClicked)}</Typography>
                                             <div className={classes.actionsContainer}>
                                                 <div>
                                                     <Button
@@ -144,14 +155,6 @@ const Form = () => {
                                     </Step>
                                 ))}
                             </Stepper>
-                            {activeStep === steps.length && (
-                                <Paper square elevation={0} className={classes.resetContainer}>
-                                    <Typography>All steps completed - you&apos;re finished</Typography>
-                                    <Button onClick={handleReset} className={classes.button}>
-                                        Reset
-                                    </Button>
-                                </Paper>
-                            )}
                         </div>
 
 
@@ -174,7 +177,14 @@ const Form = () => {
 
                     </CartContainer> */}
 
-                        <SubTotal />
+                        <ImgAndTotalContainer>
+                            <Subtotal formClicked={formClicked}/>
+
+                            <ImgWrap>
+                                <Img src={FORM_IMAGE} alt='form_display_image' />
+                            </ImgWrap>
+                        </ImgAndTotalContainer>
+
 
                     </PageContainer>
 
