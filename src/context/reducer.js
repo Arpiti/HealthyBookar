@@ -34,13 +34,19 @@ const reducer = (state, action) => {
         case "TOGGLE_PAUSE_SUBS_BASKET":
             const modBasket = [...state.basket];
             console.log('modBasket before> ', modBasket);
-            modBasket.paused=action.paused; 
+            modBasket.paused = action.paused;
             console.log('modBasket after > ', modBasket);
             return {
                 ...state,
                 basket: modBasket,
-            }
-
+            };
+        case "ADD_PRICE":
+            let pricekeyValue = {"price" : action.price};
+            console.log('Price Added > ', action.price);
+            return {
+                ...state,
+                basket: [...state.basket, pricekeyValue],
+            };
         case "SET_USER":
             return {
                 ...state,

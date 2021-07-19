@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { FormWrap, PageH1, PageH4, FormInput, FormContainer, FormLabel, FormDropdown, FormRadioContainer, FormDropdownContainer, FormBtnContainer, FormBtn, FormDropdownItem, FormDropdownSelectedItem, FormInputRadio, PageContainer, CartContainer, CartAmount, CartText, CartBtn, CartCouponContainer } from './FormElements';
 
 import FormControl from '@material-ui/core/FormControl';
@@ -11,9 +11,10 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { FormGroup, Checkbox } from '@material-ui/core';
-import { BREAKFAST, DINNER, LUNCH, MOTHER, BABY, requiredForData, prePostDeliverySelect, CUSTOM, PLAN_TYPE } from './Data';
+import { BREAKFAST, DINNER, LUNCH, MOTHER, BABY, requiredForData, prePostDeliverySelect, CUSTOM, PLAN_TYPE, VEG_PREFERENCE, NON_VEG_PREFERENCE, EGG_PREFERENCE } from './Data';
 import { StateContext, useStateValue } from '../../context/StateContext';
-import { ButtonPress } from '../ButtonElements';
+import { Button, ButtonPress } from '../ButtonElements';
+import { calculatePrice } from '../../PricingPlan';
 
 
 const GreenRadio = withStyles({
@@ -41,19 +42,46 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const PreferenceForm = ({setFormClicked}) => {
+const PreferenceForm = ({ setFormClicked, formClicked }) => {
 
     const [{ basket, user }] = useContext(StateContext);
     const [state, dispatch] = useStateValue();
 
-  //  console.log('Basket from pref form', basket);
+    //  console.log('Basket from pref form', basket);
 
     const itemSelected = basket[0];
 
     const classes = useStyles();
     const [subject, setSubject] = React.useState(itemSelected?.subject || requiredForData[0]);
-    const [prePostSelect, setPrePostSelect] = React.useState(itemSelected?.deliveryDone ? prePostDeliverySelect[1]: prePostDeliverySelect[0]);
+    const [prePostSelect, setPrePostSelect] = React.useState(itemSelected?.deliveryDone ? prePostDeliverySelect[1] : prePostDeliverySelect[0]);
 
+    // handling state for Input preference
+    let initialFoodPref = itemSelected?.eatPreference;
+    const [foodPreference, setFoodPreference] = React.useState(initialFoodPref);
+
+    const handlePreferenceChange = (event) => {
+        setFoodPreference(event.target.value);
+    };
+
+
+
+    // handling state for Input SubsPlanMother
+    let initialSubPlanMother = itemSelected?.planDurationMother;
+    const [subscriptionPlanMother, setSubscriptionPlanMother] = React.useState(initialSubPlanMother);
+
+    const handleSubsPlanMotherChange = (event) => {
+        setSubscriptionPlanMother(event.target.value);
+    };
+
+
+    // handling state for Input SubsPlanbaby
+    let initialSubPlanNewBorn = itemSelected?.planDurationBaby;
+    const [subscriptionPlanBaby, setSubscriptionPlanBaby] = React.useState(initialSubPlanNewBorn);
+
+    const handleSubsPlanBabyChange = (event) => {
+        setSubscriptionPlanBaby(event.target.value);
+    };
+    
     //handling state for Radio button
     let radioSelect = subject;
     let subscriptionReqForMother = true;
@@ -86,59 +114,51 @@ const PreferenceForm = ({setFormClicked}) => {
 
 
 
-    // handling state for Input preference
-    let initialFoodPref = itemSelected?.eatPreference;
-    const [foodPreference, setFoodPreference] = React.useState(initialFoodPref);
-
-    const handlePreferenceChange = (event) => {
-        setFoodPreference(event.target.value);
-    };
-
-
-
-    // handling state for Input SubsPlanMother
-    let initialSubPlanMother = itemSelected?.planDurationMother;
-    const [subscriptionPlanMother, setSubscriptionPlanMother] = React.useState(initialSubPlanMother);
-
-    const handleSubsPlanMotherChange = (event) => {
-        setSubscriptionPlanMother(event.target.value);
-    };
-
-
-    // handling state for Input SubsPlanbaby
-    let initialSubPlanNewBorn = itemSelected?.planDurationNewBorn;
-    const [subscriptionPlanBaby, setSubscriptionPlanBaby] = React.useState(initialSubPlanNewBorn);
-
-    const handleSubsPlanBabyChange = (event) => {
-        setSubscriptionPlanBaby(event.target.value);
-    };
+    
 
     //handling submit click and make changes to basket here
     const handleSubmitClick = (event) => {
-       
+
         setFormClicked(false);
 
-        event.preventDefault();
+        // event.preventDefault();
 
-        console.log('Hello from AddtoBasket');
+        // console.log('Hello from AddtoBasket');
         // dispatch the item into the data layer
-            dispatch({
-                type: "ADD_TO_BASKET",
-                item: {
-                    id: CUSTOM,
-                    type: PLAN_TYPE,
-                    subject: subject,
-                    deliveryDone: (((prePostSelect.toUpperCase()) === (prePostDeliverySelect[0].toUpperCase())) ? false : true),
-                    eatPreference: foodPreference,
-                    planDurationMother: subscriptionPlanMother,
-                    planDurationNewBorn: subscriptionPlanBaby,
-                    breakFastRequired: checkboxSelect.Breakfast,
-                    lunchRequired: checkboxSelect.Lunch,
-                    dinnerRequired: checkboxSelect.Dinner,
-                }
-            })
 
-            
+        let newSelection = {
+            id: CUSTOM,
+            type: PLAN_TYPE,
+            subject: subject,
+            deliveryDone: (((prePostSelect.toUpperCase()) === (prePostDeliverySelect[0].toUpperCase())) ? false : true),
+            eatPreference: foodPreference,
+            planDurationMother: subscriptionPlanMother,
+            planDurationBaby: subscriptionPlanBaby,
+            breakFastRequired: checkboxSelect.Breakfast,
+            lunchRequired: checkboxSelect.Lunch,
+            dinnerRequired: checkboxSelect.Dinner,
+        };
+
+        if(!subscriptionReqForBaby)
+            newSelection['planDurationBaby'] = null;
+
+        if(!subscriptionReqForMother)
+            newSelection['planDurationMother'] = null;
+
+        // Calling self calling asyc function to dispatch the data, but this doesn't seem to work this way though.
+        // Think about it.    
+        (async () => {
+            await dispatch({
+                type: "ADD_TO_BASKET",
+                item: newSelection,
+            });
+
+            console.log('newSelection', newSelection);
+//            console.log('basket', basket[0]);
+        })();
+
+        calculatePrice(newSelection, dispatch);
+
 
     }
 
@@ -158,41 +178,43 @@ const PreferenceForm = ({setFormClicked}) => {
         setPrePostSelect(event.target.value);
     }
 
+    // console.log('formClicked in Pref Form > ', setFormClicked);
+
     return (
         <div>
             <FormContainer>
-            <FormWrap onClick={()=>{
-                setFormClicked(true);
-             //   console.log('formClicked');
-                return true;
-            }
-            }>
-                <FormRadioContainer>
-                    <FormControl component="fieldset" className={classes.formControl}>
-                        <RadioGroup row aria-label="chooseSubject" name="subject" value={subject} onChange={handleRequiredForRadioChange}>
-                            {
-                                requiredForData.map(input => {
-                                    return (
-                                        <FormControlLabel  key={input} control={<GreenRadio />} value={input} label={input} />
-                                    );
-                                })
-                            }
-                        </RadioGroup>
-                    </FormControl>
+                <FormWrap onClick={() => {
+                    setFormClicked(true);
+                    //   console.log('formClicked');
+                    //   return true;
+                }
+                }>
+                    <FormRadioContainer>
+                        <FormControl component="fieldset" className={classes.formControl}>
+                            <RadioGroup row aria-label="chooseSubject" name="subject" value={subject} onChange={handleRequiredForRadioChange}>
+                                {
+                                    requiredForData.map(input => {
+                                        return (
+                                            <FormControlLabel key={input} control={<GreenRadio />} value={input} label={input} />
+                                        );
+                                    })
+                                }
+                            </RadioGroup>
+                        </FormControl>
                     </FormRadioContainer>
 
                     <FormRadioContainer>
-                    {isPrePostSelectRequired && <FormControl component="fieldset" className={classes.formControl}>
-                        <RadioGroup row aria-label="chooseSubject" name="subject" value={prePostSelect} onChange={handlePrePostSelectChange}>
-                            {
-                                prePostDeliverySelect.map(input => {
-                                    return (
-                                        <FormControlLabel key={input} control={<GreenRadio />} value={input} label={input} />
-                                    );
-                                })
-                            }
-                        </RadioGroup>
-                    </FormControl>}
+                        {isPrePostSelectRequired && <FormControl component="fieldset" className={classes.formControl}>
+                            <RadioGroup row aria-label="chooseSubject" name="subject" value={prePostSelect} onChange={handlePrePostSelectChange}>
+                                {
+                                    prePostDeliverySelect.map(input => {
+                                        return (
+                                            <FormControlLabel key={input} control={<GreenRadio />} value={input} label={input} />
+                                        );
+                                    })
+                                }
+                            </RadioGroup>
+                        </FormControl>}
                     </FormRadioContainer>
 
                     <FormDropdownContainer>
@@ -224,9 +246,9 @@ const PreferenceForm = ({setFormClicked}) => {
                                 value={foodPreference}
                                 onChange={handlePreferenceChange}
                                 className={classes.selectEmpty}>
-                                <MenuItem value="Vegetarian">Vegetarian</MenuItem>
-                                <MenuItem value="Non-vegetarian">Non-Vegetarian</MenuItem>
-                                <MenuItem value="Eggitarian">Eggitarian</MenuItem>
+                                <MenuItem value={VEG_PREFERENCE}>{VEG_PREFERENCE}</MenuItem>
+                                <MenuItem value={NON_VEG_PREFERENCE}>{NON_VEG_PREFERENCE}</MenuItem>
+                                <MenuItem value={EGG_PREFERENCE}>{EGG_PREFERENCE}</MenuItem>
                             </Select>
                             <FormHelperText>Required</FormHelperText>
                         </FormControl>
@@ -272,9 +294,9 @@ const PreferenceForm = ({setFormClicked}) => {
                         </FormControl>
                     </FormDropdownContainer>}
 
-                    <FormBtnContainer>
-                        <ButtonPress onClick={handleSubmitClick}>Calculate</ButtonPress>
-                    </FormBtnContainer>
+                    {formClicked && <FormBtnContainer>
+                        <Button onClick={handleSubmitClick}>Calculate</Button>
+                    </FormBtnContainer>}
 
                 </FormWrap>
             </FormContainer>

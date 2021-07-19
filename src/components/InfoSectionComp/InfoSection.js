@@ -55,7 +55,7 @@ const InfoSection = ({lightBg, name, imgStart, topLine, lightText, headline, dar
                                         dark2={dark2 ? 1 : 0}>
                                             {buttonLabel}
                                     </Button>}
-                                    
+                                   
                                     {!isButtonScroll && item && <ButtonNavigate 
                                         onClick = {addToBasket}
                                         to = {linkTo} 

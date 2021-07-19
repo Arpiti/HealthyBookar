@@ -58,10 +58,10 @@ function getSteps() {
     return ['Choose your preferences', 'Deliver to Address', 'Complete Payment'];
 }
 
-function getStepContent(step, setFormClicked) {
+function getStepContent(step, setFormClicked, formClicked) {
     switch (step) {
         case 0:
-            return <PreferenceForm setFormClicked={setFormClicked}/>;
+            return <PreferenceForm setFormClicked={setFormClicked} formClicked={formClicked}/>;
         case 1:
             return <AddressForm />;
         case 2:
@@ -107,10 +107,11 @@ const Form = () => {
     };
 
     const [formClicked, setFormClicked] = React.useState(false);
-    const showPriceCalculateMessage = React.useMemo(() => formClicked,[formClicked])
+    const showPriceCalculateMessage = React.useMemo(() => formClicked,[formClicked]);
 
-    console.log('formClicked in Form > ', formClicked);
-    console.log('showPriceCalculateMessage in Form > ', showPriceCalculateMessage);
+   // console.log('formClicked in Form > ', formClicked);
+  //  console.log('showPriceCalculateMessage in Form > ', showPriceCalculateMessage);
+   
 
     return (
         <>
@@ -130,7 +131,7 @@ const Form = () => {
                                     <Step key={label}>
                                         <StepLabel>{label}</StepLabel>
                                         <StepContent>
-                                            <Typography>{getStepContent(index , setFormClicked)}</Typography>
+                                            <Typography>{getStepContent(index , setFormClicked, formClicked)}</Typography>
                                             <div className={classes.actionsContainer}>
                                                 <div>
                                                     <Button
@@ -178,7 +179,7 @@ const Form = () => {
                     </CartContainer> */}
 
                         <ImgAndTotalContainer>
-                            <Subtotal formClicked={formClicked}/>
+                            <Subtotal showPriceCalculateMessage={showPriceCalculateMessage}/>
 
                             <ImgWrap>
                                 <Img src={FORM_IMAGE} alt='form_display_image' />

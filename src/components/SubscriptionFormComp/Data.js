@@ -13,6 +13,7 @@ export const PLAN_TYPE = 'Recommended'
 
 export const MOTHER = 'Mother';
 export const BABY = 'Baby';
+export const BOTH = 'Both';
 
 export const VEG_PREFERENCE = 'Vegetarian';
 export const NON_VEG_PREFERENCE = 'Non-Vegetarian';

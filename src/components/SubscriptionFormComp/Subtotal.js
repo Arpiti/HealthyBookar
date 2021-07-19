@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import { StateContext } from '../../context/StateContext';
 import { SubtotalWrap, SubtotalHeading, SubtotalInfo, SubtotalSmallHeading } from './SubtotalElements';
 
-const Subtotal = ({ formClicked }) => {
+const Subtotal = ({ showPriceCalculateMessage }) => {
 
     const [{ basket }] = useContext(StateContext);
     const history = useHistory();
@@ -18,7 +18,7 @@ const Subtotal = ({ formClicked }) => {
         <SubtotalWrap>
             <SubtotalHeading>Total Amount</SubtotalHeading>
             <SubtotalSmallHeading>(This price is inclusive of GST)*</SubtotalSmallHeading>
-            {formClicked ?
+            {showPriceCalculateMessage ?
                 (<SubtotalInfo> Press Calculate Button </SubtotalInfo>)
                 :
                 (<CurrencyFormat renderText={(value) => (
