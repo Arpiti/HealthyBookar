@@ -20,33 +20,39 @@ const reducer = (state, action) => {
                 basket: []
             }
         case "REMOVE_FROM_BASKET":
-            const index = state.basket.findIndex(
-                (basketItem) => basketItem.id === action.id);
+            {
+                let index = state.basket.findIndex(
+                    (basketItem) => basketItem.id === action.id);
 
-            let newBasket = [...state.basket];
+                let newBasket = [...state.basket];
 
-            (index >= 0) ? (newBasket.splice(index, 1)) : (console.warn(`Can't remove product id (${action.id}) as it is not in basket`));
+                (index >= 0) ? (newBasket.splice(index, 1)) : (console.warn(`Can't remove product id (${action.id}) as it is not in basket`));
 
-            return {
-                ...state,
-                basket: newBasket,
-            };
+                return {
+                    ...state,
+                    basket: newBasket,
+                };
+            }
         case "TOGGLE_PAUSE_SUBS_BASKET":
-            const modBasket = [...state.basket];
-            console.log('modBasket before> ', modBasket);
-            modBasket.paused = action.paused;
-            console.log('modBasket after > ', modBasket);
-            return {
-                ...state,
-                basket: modBasket,
-            };
+            {
+                let modBasket = [...state.basket];
+                modBasket[0].paused = action.paused;
+                return {
+                    ...state,
+                    basket: modBasket,
+                };
+            }
         case "ADD_PRICE":
-            let pricekeyValue = {"price" : action.price};
-            console.log('Price Added > ', action.price);
-            return {
-                ...state,
-                basket: [...state.basket, pricekeyValue],
-            };
+            {
+                let modBasket = [...state.basket];
+                console.log('Price Added > ', action.price);
+                modBasket[0].price = action.price;
+                console.log('modBasket ', modBasket);
+                return {
+                    ...state,
+                    basket: modBasket,
+                };
+            }
         case "SET_USER":
             return {
                 ...state,

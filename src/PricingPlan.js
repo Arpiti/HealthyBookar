@@ -62,8 +62,6 @@ export const calculatePrice = (basket, dispatch) => {
 
     let item = basket;
     let amount = 0;
-   // console.log('basket in PricingPlan after price dispatch', basketAftDispatch);
-
 
     switch (item?.subject.toUpperCase()) {
 
@@ -100,11 +98,11 @@ export const calculatePrice = (basket, dispatch) => {
                 }
 
                 // console.log('Price >', amount);
-                const basketAftDispatch = dispatch({
+                dispatch({
                     type: "ADD_PRICE",
                     price: amount,
                 })
-                console.log('basket in PricingPlan after price dispatch', basketAftDispatch);
+               
             }
             break;
         case (BABY.toUpperCase()):
@@ -127,11 +125,11 @@ export const calculatePrice = (basket, dispatch) => {
                         amount = amount + (baby_veg[item?.planDurationBaby][DINNER_INDEX] * item?.planDurationBaby);
                 }
                 // console.log('Price >', amount);
-                const basketAftDispatch = dispatch({
+                dispatch({
                     type: "ADD_PRICE",
                     price: amount,
                 })
-                console.log('basket in PricingPlan after price dispatch', basketAftDispatch);
+               
             }
             break;
         case (BOTH.toUpperCase()):
@@ -180,11 +178,11 @@ export const calculatePrice = (basket, dispatch) => {
                     }
                 }
                 // console.log('Price >', amount);
-                const basketAftDispatch = dispatch({
+                dispatch({
                     type: "ADD_PRICE",
                     price: amount,
                 })
-                console.log('basket in PricingPlan after price dispatch', basketAftDispatch);
+               
             }
             break;
         default:

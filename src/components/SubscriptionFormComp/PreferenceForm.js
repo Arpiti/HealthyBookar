@@ -137,6 +137,7 @@ const PreferenceForm = ({ setFormClicked, formClicked }) => {
             breakFastRequired: checkboxSelect.Breakfast,
             lunchRequired: checkboxSelect.Lunch,
             dinnerRequired: checkboxSelect.Dinner,
+            paused: false,
         };
 
         if(!subscriptionReqForBaby)

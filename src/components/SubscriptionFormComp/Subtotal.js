@@ -9,6 +9,8 @@ const Subtotal = ({ showPriceCalculateMessage }) => {
     const [{ basket }] = useContext(StateContext);
     const history = useHistory();
 
+    console.log('basket in subtotal now >', basket[0]);
+
     // this method is capable to add prices for mutiple products, though we have not allowed basket to contain more than one product for now.
     const totalPrice = basket.reduce((sum, product) => {
         return sum + Number(product.price);
