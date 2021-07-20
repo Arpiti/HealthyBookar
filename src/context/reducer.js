@@ -45,9 +45,9 @@ const reducer = (state, action) => {
         case "ADD_PRICE":
             {
                 let modBasket = [...state.basket];
-                console.log('Price Added > ', action.price);
+              //  console.log('Price Added > ', action.price);
                 modBasket[0].price = action.price;
-                console.log('modBasket ', modBasket);
+              //  console.log('modBasket ', modBasket);
                 return {
                     ...state,
                     basket: modBasket,

@@ -15,6 +15,7 @@ import { BREAKFAST, DINNER, LUNCH, MOTHER, BABY, requiredForData, prePostDeliver
 import { StateContext, useStateValue } from '../../context/StateContext';
 import { Button, ButtonPress } from '../ButtonElements';
 import { calculatePrice } from '../../PricingPlan';
+import { red } from '@material-ui/core/colors';
 
 
 const GreenRadio = withStyles({
@@ -27,6 +28,7 @@ const GreenCheckbox = withStyles({
     checked: {
         color: '#01bf71',
     },
+
 })((props) => <Checkbox color="default" {...props} />);
 
 const useStyles = makeStyles((theme) => ({
@@ -42,12 +44,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const PreferenceForm = ({ setFormClicked, formClicked }) => {
+const PreferenceForm = ({ setFormClicked, formClicked, setAnyFormError }) => {
 
     const [{ basket, user }] = useContext(StateContext);
     const [state, dispatch] = useStateValue();
 
-    //  console.log('Basket from pref form', basket);
+    //   console.log('Basket from pref form', basket);
+    let isPrefFormError = false;
 
     const itemSelected = basket[0];
 
@@ -75,13 +78,13 @@ const PreferenceForm = ({ setFormClicked, formClicked }) => {
 
 
     // handling state for Input SubsPlanbaby
-    let initialSubPlanNewBorn = itemSelected?.planDurationBaby;
-    const [subscriptionPlanBaby, setSubscriptionPlanBaby] = React.useState(initialSubPlanNewBorn);
+    let initialSubPlanBaby = itemSelected?.planDurationBaby;
+    const [subscriptionPlanBaby, setSubscriptionPlanBaby] = React.useState(initialSubPlanBaby);
 
     const handleSubsPlanBabyChange = (event) => {
         setSubscriptionPlanBaby(event.target.value);
     };
-    
+
     //handling state for Radio button
     let radioSelect = subject;
     let subscriptionReqForMother = true;
@@ -114,7 +117,7 @@ const PreferenceForm = ({ setFormClicked, formClicked }) => {
 
 
 
-    
+
 
     //handling submit click and make changes to basket here
     const handleSubmitClick = (event) => {
@@ -140,10 +143,10 @@ const PreferenceForm = ({ setFormClicked, formClicked }) => {
             paused: false,
         };
 
-        if(!subscriptionReqForBaby)
+        if (!subscriptionReqForBaby)
             newSelection['planDurationBaby'] = null;
 
-        if(!subscriptionReqForMother)
+        if (!subscriptionReqForMother)
             newSelection['planDurationMother'] = null;
 
         // Calling self calling asyc function to dispatch the data, but this doesn't seem to work this way though.
@@ -155,7 +158,7 @@ const PreferenceForm = ({ setFormClicked, formClicked }) => {
             });
 
             console.log('newSelection', newSelection);
-//            console.log('basket', basket[0]);
+            //            console.log('basket', basket[0]);
         })();
 
         calculatePrice(newSelection, dispatch);
@@ -166,20 +169,31 @@ const PreferenceForm = ({ setFormClicked, formClicked }) => {
 
     // handling the meal checkboxes
     const [checkboxSelect, setCheckboxSelect] = React.useState({
-        Breakfast: true,
-        Dinner: true,
-        Lunch: true,
+        Breakfast: itemSelected?.breakFastRequired,
+        Dinner: itemSelected?.lunchRequired,
+        Lunch: itemSelected?.dinnerRequired,
     });
 
     const handleChange = (event) => {
         setCheckboxSelect({ ...checkboxSelect, [event.target.name]: event.target.checked });
     };
 
+    const noMealSelected = !(checkboxSelect.Breakfast || checkboxSelect.Dinner || checkboxSelect.Lunch);
+
     const handlePrePostSelectChange = (event) => {
         setPrePostSelect(event.target.value);
     }
 
-    // console.log('formClicked in Pref Form > ', setFormClicked);
+    if (noMealSelected || foodPreference == null || (subscriptionReqForMother && subscriptionPlanMother == null) || (subscriptionReqForBaby && subscriptionPlanBaby == null)) {
+        setAnyFormError(true);
+        isPrefFormError = true;
+    }
+    else{
+        setAnyFormError(false);
+        isPrefFormError = false;
+    }
+
+     console.log('isPrefFormError in Pref Form > ', isPrefFormError);
 
     return (
         <div>
@@ -220,7 +234,7 @@ const PreferenceForm = ({ setFormClicked, formClicked }) => {
 
                     <FormDropdownContainer>
                         <FormControl component="fieldset" className={classes.formControl}>
-                            {/* <FormLabel component="legend">Select the required meals</FormLabel> */}
+                            {noMealSelected && <FormLabel component="legend" style={{ color: 'red' }}>Select atleast 1 meal</FormLabel>}
                             <FormGroup row>
                                 <FormControlLabel
                                     control={<GreenCheckbox checked={checkboxSelect.Breakfast} onChange={handleChange} name={BREAKFAST} />}
@@ -246,7 +260,8 @@ const PreferenceForm = ({ setFormClicked, formClicked }) => {
                                 id="demo-simple-select-required"
                                 value={foodPreference}
                                 onChange={handlePreferenceChange}
-                                className={classes.selectEmpty}>
+                                className={classes.selectEmpty}
+                                error={foodPreference == null}>
                                 <MenuItem value={VEG_PREFERENCE}>{VEG_PREFERENCE}</MenuItem>
                                 <MenuItem value={NON_VEG_PREFERENCE}>{NON_VEG_PREFERENCE}</MenuItem>
                                 <MenuItem value={EGG_PREFERENCE}>{EGG_PREFERENCE}</MenuItem>
@@ -263,7 +278,8 @@ const PreferenceForm = ({ setFormClicked, formClicked }) => {
                                 id="demo-simple-select-required"
                                 value={subscriptionPlanMother}
                                 onChange={handleSubsPlanMotherChange}
-                                className={classes.selectEmpty}>
+                                className={classes.selectEmpty}
+                                error={(subscriptionPlanMother == null)}>
                                 <MenuItem value="1">1 month</MenuItem>
                                 <MenuItem value="2">2 months</MenuItem>
                                 <MenuItem value="3">3 months</MenuItem>
@@ -283,7 +299,8 @@ const PreferenceForm = ({ setFormClicked, formClicked }) => {
                                 id="demo-simple-select-required"
                                 value={subscriptionPlanBaby}
                                 onChange={handleSubsPlanBabyChange}
-                                className={classes.selectEmpty}>
+                                className={classes.selectEmpty}
+                                error={(subscriptionPlanBaby == null)}>
                                 <MenuItem value="1">1 month</MenuItem>
                                 <MenuItem value="2">2 months</MenuItem>
                                 <MenuItem value="3">3 months</MenuItem>
@@ -295,7 +312,7 @@ const PreferenceForm = ({ setFormClicked, formClicked }) => {
                         </FormControl>
                     </FormDropdownContainer>}
 
-                    {formClicked && <FormBtnContainer>
+                    {formClicked && !isPrefFormError && <FormBtnContainer>
                         <Button onClick={handleSubmitClick}>Calculate</Button>
                     </FormBtnContainer>}
 

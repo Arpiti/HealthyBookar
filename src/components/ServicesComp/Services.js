@@ -18,7 +18,7 @@ function Services({ servicesData }) {
                 deliveryDone: item.deliveryDone,
                 eatPreference: item.eatPreference,
                 planDurationMother: item.planDurationMother,
-                planDurationNewBorn: item.planDurationNewBorn,
+                planDurationBaby: item.planDurationBaby,
                 breakFastRequired: item.breakFastRequired,
                 lunchRequired: item.lunchRequired,
                 dinnerRequired: item.dinnerRequired,
