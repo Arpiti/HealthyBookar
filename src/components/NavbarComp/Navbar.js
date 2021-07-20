@@ -1,8 +1,9 @@
+import FastfoodSharpIcon from '@material-ui/icons/FastfoodSharp';
 import React from 'react';
 import { FaBars } from 'react-icons/fa';
 import { animateScroll as scroll } from 'react-scroll';
 import { useStateValue } from '../../context/StateContext';
-import { auth } from '../../firebase/config';
+import { auth, db } from '../../firebase/config';
 
 import {
     Nav,
@@ -16,20 +17,42 @@ import {
     NavBtnLink,
     NavLinkRoute,
     NavProfile,
-    NavBtnContainer
+    NavBtnContainer,
+    NavOrderContainer,
+    NavOrder,
+    NavOrderQuantity,
 } from './NavbarElements'
 
 
 const Navbar = ({ toggle }) => {
 
     const [{ basket, user }, dispatch] = useStateValue();
+    const [orderQuantity, setOrderQuantity] = React.useState(0);
+
+    React.useEffect(() => {
+
+        console.log('In Navar useEffect');
+        const unsub = db
+            .collection('users')
+            .doc(user?.uid)
+            .collection('orders')
+            .get()
+            .then(snap => {
+                //console.log('Size from Navbar 1> ', snap.size);
+                setOrderQuantity(snap.size);
+            })
+            .catch(error => console.error(error.message));
+
+          //  console.log('Size from Navbar > ', orderQuantity);
+        
+    }, [user]);
 
     const toggleHome = () => {
         scroll.scrollToTop();
     }
 
     const handleAuthentication = () => {
-        if(user){
+        if (user) {
             auth.signOut();
         }
     }
@@ -75,31 +98,38 @@ const Navbar = ({ toggle }) => {
                                 exact='true'
                                 offset={-80}>FAQs</NavLinkRoute>
                         </NavItem>
-                       
+
                     </NavMenu>
+
+                    <NavOrderContainer to="/order">
+                        <NavOrder>Orders</NavOrder>
+                        <FastfoodSharpIcon style={{ color: 'white', marginLeft: '.5rem' }} />
+                        <NavOrderQuantity>{orderQuantity}</NavOrderQuantity>
+                    </NavOrderContainer>
+
                     <NavBtnContainer>
-                    { user && <NavProfile><em>Hi {user.displayName}</em></NavProfile>}
-                    <NavBtn onClick={handleAuthentication}>
-                        {user ?
+                        {user && <NavProfile><em>Hi {user.displayName}</em></NavProfile>}
+                        <NavBtn onClick={handleAuthentication}>
+                            {user ?
 
-                            <NavBtnLink
-                                smooth={true}
-                                duration={500}
-                                spy={true}
-                                exact='true'
-                                offset={-80}>Sign Out</NavBtnLink>
-                            :
-                            <NavBtnLink to="/signin"
-                                smooth={true}
-                                duration={500}
-                                spy={true}
-                                exact='true'
-                                offset={-80}>Sign In</NavBtnLink>
+                                <NavBtnLink
+                                    smooth={true}
+                                    duration={500}
+                                    spy={true}
+                                    exact='true'
+                                    offset={-80}>Sign Out</NavBtnLink>
+                                :
+                                <NavBtnLink to="/signin"
+                                    smooth={true}
+                                    duration={500}
+                                    spy={true}
+                                    exact='true'
+                                    offset={-80}>Sign In</NavBtnLink>
 
-                        }
-                    </NavBtn>
+                            }
+                        </NavBtn>
                     </NavBtnContainer>
-                    
+
                 </NavbarContainer>
             </Nav>
         </>

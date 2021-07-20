@@ -1,5 +1,7 @@
 .root {
   --primary-color: '#01bf71'; 
+  --secondary-color: white;
+  --secondary-2-color: black;
 }
 
 body {

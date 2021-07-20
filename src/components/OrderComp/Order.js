@@ -41,7 +41,7 @@ const Order = ({ order, index, user }) => {
                 .update({
                     "basket.paused": !pauseSubscriptionValue
                 }))
-            .then(() => console.log('dbUpdated for pause Value is SUCCESS > '))
+            .then(() => console.log('dbUpdate for pause Value is SUCCESS > '))
             .catch(error => console.error(error));
 
         setPauseSubscriptionValue(!pauseSubscriptionValue);

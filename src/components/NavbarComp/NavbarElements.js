@@ -150,5 +150,22 @@ export const NavBtnLink = styled(LinkR)`
     export const NavProfile = styled.h4`
         color: white;
         padding: .25rem;
+    `;
 
+    export const NavOrderContainer = styled(LinkR)`
+        padding: .5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        text-decoration: none;
+    `;
+
+    export const NavOrder = styled.p`
+        color: white;
+    `;
+
+    export const NavOrderQuantity = styled.p`
+        color: #01bf71;
+        align-self: flex-start;
     `;
