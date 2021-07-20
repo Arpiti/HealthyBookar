@@ -21,7 +21,7 @@ const Subtotal = ({ showPriceCalculateMessage }) => {
             <SubtotalHeading>Total Amount</SubtotalHeading>
             <SubtotalSmallHeading>(This price is inclusive of GST)*</SubtotalSmallHeading>
             {showPriceCalculateMessage ?
-                (<SubtotalInfo> Press Calculate Button </SubtotalInfo>)
+                (<SubtotalInfo> Press Calculate Button (in 1st Section) </SubtotalInfo>)
                 :
                 (<CurrencyFormat renderText={(value) => (
                     <>
