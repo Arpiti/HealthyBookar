@@ -3,7 +3,7 @@ import { Data } from './Data';
 import { IconContext } from 'react-icons';
 import { FiPlus, FiMinus } from 'react-icons/fi';
 import { AccordianContainer, AccordianSection, Container, Wrap, Dropdown, AccordianHeader, AccordianBackButton, AccordianTitleAndBackBtnWrap } from './AccordianElements';
-import { HiArrowLeft as BackArrowIcon } from 'react-icons/hi';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const Accordian = () => {
 
@@ -22,7 +22,7 @@ const Accordian = () => {
 
                 <AccordianTitleAndBackBtnWrap>
                     <AccordianBackButton to="/">
-                        <BackArrowIcon />
+                        <ArrowBackIcon />
                     </AccordianBackButton>
                     <AccordianHeader> Frequently Asked Questions </AccordianHeader>
                 </AccordianTitleAndBackBtnWrap>

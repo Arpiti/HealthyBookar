@@ -37,7 +37,7 @@ export const AccordianBackButton = styled(Link)`
     }
 
     position: absolute;
-    top: 10rem;
+    top: 8.5rem;
     left: 4rem;
 
     @media screen and (max-width: 960px){

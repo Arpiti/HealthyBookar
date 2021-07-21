@@ -110,6 +110,11 @@ export const FormButtonSubmit = styled.button`
         transition: all 0.2s ease-in-out;
         background: white;
     }
+
+    &:disabled {
+        border: 1px solid #999999;
+        background-color: #cccccc;
+        color: #666666;
 `;
 
 export const FormButtonFacebookSignIn = styled.button`

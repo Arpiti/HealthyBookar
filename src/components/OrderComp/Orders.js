@@ -47,11 +47,12 @@ const Orders = () => {
                 <ImgWrap>
                     <Img src={ORDER_CONFIRMED_IMAGE_URL} alt="Order_Confirmed_Image" />
                 </ImgWrap>
-                <OrderSignInContainer>
+
+                {!user && <OrderSignInContainer>
                     <OrderExpiredHeading>Please sign up/in to see your orders</OrderExpiredHeading>
                     <ButtonNavigate to='/signin'>Sign In/Up</ButtonNavigate>
-                </OrderSignInContainer>
-                
+                </OrderSignInContainer>}
+
 
                 {user && <OrderHistoryContainer>
                     {

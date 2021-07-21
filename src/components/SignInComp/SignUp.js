@@ -13,8 +13,8 @@ export const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const [{}, dispatch] = React.useContext(StateContext);
-    
+    const [{ }, dispatch] = React.useContext(StateContext);
+
 
     const registerNewAccount = e => {
         e.preventDefault();
@@ -32,12 +32,12 @@ export const SignUp = () => {
             })
             .catch(error => alert(error.message))
 
-            console.log('name entered is >>', name);
+        console.log('name entered is >>', name);
 
-            dispatch({
-                type: "SET_USER_NAME",
-                userNameEntered: name
-              })
+        dispatch({
+            type: "SET_USER_NAME",
+            userNameEntered: name
+        })
     }
 
     const registerWithGoogle = e => {
@@ -115,6 +115,7 @@ export const SignUp = () => {
         <>
             <Container>
                 <FormWrap>
+
                     <FormContent>
                         <Form action="#">
                             <Icon to="/">Healthy<span style={{ color: '#01bf71' }}>Book</span>ar</Icon>
@@ -125,7 +126,7 @@ export const SignUp = () => {
                             <FormInout type="email" required value={email} onChange={e => setEmail(e.target.value)} />
                             <FormLabel htmlFor="for">Password</FormLabel>
                             <FormInout type="password" requiredvalue={password} onChange={e => setPassword(e.target.value)} />
-                            <FormButtonSubmit type="submit" onClick={registerNewAccount}> Register </FormButtonSubmit>
+                            <FormButtonSubmit disabled={!name || !email || !password} type="submit" onClick={registerNewAccount}> Register </FormButtonSubmit>
                             <Text> ----------- OR ----------- </Text>
                             <FormButtonGoogleSignIn onClick={registerWithGoogle} type="submit">Sign up with Google</FormButtonGoogleSignIn>
                             <FormButtonFacebookSignIn onClick={registerWithFacebook} type="submit">Sign up with Facebook</FormButtonFacebookSignIn>
