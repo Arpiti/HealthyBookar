@@ -91,7 +91,7 @@ export const PauseButtonContainer = styled.div`
 `;
 
 export const ImgWrap = styled.div`
-    max-width: 550px;
+    max-width: 500px;
     padding: 3rem;
     margin-right: 2rem;
     height: 100%;

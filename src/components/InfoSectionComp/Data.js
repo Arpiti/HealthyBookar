@@ -57,13 +57,12 @@ export const homeObj2 = {
         type: 'recommended',
         subject: MOTHER,
         deliveryDone: true,
-        eatPreference: 'Vegetarian',
+        eatPreference: VEG_PREFERENCE,
         planDurationMother: 3,
         planDurationBaby: null,
         breakFastRequired: true,
         lunchRequired: true,
         dinnerRequired: true,
-        price: 6000,
         paused: false
     }
 };
@@ -91,19 +90,18 @@ export const homeObj3 = {
         type: 'recommended',
         subject: MOTHER,
         deliveryDone: false,
-        eatPreference: 'vegetarian',
+        eatPreference: VEG_PREFERENCE,
         planDurationMother: 6,
         planDurationBaby: null,
         breakFastRequired: true,
         lunchRequired: true,
         dinnerRequired: true,
-        price: 12000,
-        paused: false
+        paused: false,
     }
 };
 
 export const homeObj4 = {
-    name: 'signup',
+    name: 'babyFood',
     lightBg: true,
     lightText: false,
     lightTextDesc: false,
@@ -125,13 +123,12 @@ export const homeObj4 = {
         type: 'recommended',
         subject: BABY,
         deliveryDone: true,
-        eatPreference: 'vegetarian',
-        planDurationMother: 3,
-        planDurationBaby: null,
+        eatPreference: VEG_PREFERENCE,
+        planDurationMother: null,
+        planDurationBaby: 3,
         breakFastRequired: true,
         lunchRequired: true,
         dinnerRequired: true,
-        price: 10000,
-        paused: false
+        paused: false,
     }
 };

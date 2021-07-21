@@ -58,9 +58,8 @@ const baby_nonVeg = [
     [395, 395, 395],
 ];
 
-export const calculatePrice = (basket, dispatch) => {
+export const calculatePrice = (item, dispatch) => {
 
-    let item = basket;
     let amount = 0;
 
     switch (item?.subject.toUpperCase()) {

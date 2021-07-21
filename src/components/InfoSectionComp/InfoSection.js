@@ -1,9 +1,12 @@
 import { duration } from '@material-ui/core';
 import React from 'react'
 import { useStateValue } from '../../context/StateContext';
+import { calculatePrice } from '../../PricingPlan';
 import { Button, ButtonNavigate } from '../ButtonElements';
 import {InfoContainer, InfoWrapper, InfoRow, Column1, TextWrapper, TopLine, Heading, Subtitle, BtnWrap, Column2,
 ImgWrap, Img} from './InfoSectionElements';
+
+import RedirectDialogBox from '../SignInComp/RedirectDialogBox';
 
 
 const InfoSection = ({lightBg, name, imgStart, topLine, lightText, headline, darkText, description, buttonLabel, img, alt, primary, dark, dark2, isButtonScroll, linkTo, item}) => {
@@ -12,8 +15,9 @@ const InfoSection = ({lightBg, name, imgStart, topLine, lightText, headline, dar
 
     const addToBasket = () => {
 
-        //console.log('Hello from AddtoBasket');
+        // console.log('Hello from Info Section, item > ', item);
        // dispatch the item into the data layer
+
         dispatch({
             type: "ADD_TO_BASKET",
             item: {
@@ -23,14 +27,15 @@ const InfoSection = ({lightBg, name, imgStart, topLine, lightText, headline, dar
                 deliveryDone: item.deliveryDone,
                 eatPreference: item.eatPreference,
                 planDurationMother: item.planDurationMother,
-                planDurationNewBorn: item.planDurationNewBorn,
+                planDurationBaby: item.planDurationBaby,
                 breakFastRequired: item.breakFastRequired,
                 lunchRequired: item.lunchRequired,
                 dinnerRequired: item.dinnerRequired,
-                price: item.price,
                 paused: item.paused,
             }
         })
+
+        calculatePrice(item, dispatch);
     }
     
     return (

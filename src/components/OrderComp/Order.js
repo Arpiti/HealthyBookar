@@ -102,25 +102,3 @@ const Order = ({ order, index, user }) => {
 }
 
 export default Order;
-
-    // breakFastRequired: true
-
-                    // deliveryDone: false
-
-                    // dinnerRequired: true
-
-                    // eatPreference: "Vegetarian"
-
-                    // id: "6MonthsPreDeliveryMother"
-
-                    // lunchRequired: true
-
-                    // planDurationMother: 6
-
-                    // planDurationNewBorn: null
-
-                    // price: 12000
-
-                    // subject: "Mother"
-
-                    // type: "recommended"

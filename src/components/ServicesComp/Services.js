@@ -1,12 +1,13 @@
 import React from 'react';
 import { ServicesContainer, ServicesWrapper, ServicesH1, ServicesCard, ServicesH2, ServicesIcon, ServicesP, ServicesTopLine, ServicesCardWrap } from './ServicesElements';
 import { useStateValue } from '../../context/StateContext';
+import { calculatePrice } from '../../PricingPlan';
 
 function Services({ servicesData }) {
 
     const [state, dispatch] = useStateValue();
 
-   function addToBasket(item) {
+    function addToBasket(item) {
 
        // dispatch the item into the data layer
         dispatch({
@@ -22,10 +23,11 @@ function Services({ servicesData }) {
                 breakFastRequired: item.breakFastRequired,
                 lunchRequired: item.lunchRequired,
                 dinnerRequired: item.dinnerRequired,
-                price: item.price,
                 paused: item.paused,
             }
         })
+
+        calculatePrice(item, dispatch);
     }
 
     return (
