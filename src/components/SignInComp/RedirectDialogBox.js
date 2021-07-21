@@ -25,7 +25,7 @@ const RedirectDialogBox = ({ redirectHeading, pageName, redirectTimeout }) => {
           <Container>
                 <FormWrap>
                     <FormContent>
-                        <Form action="#">
+                        <Form>
                             <Icon to="/">Healthy<span style={{ color: '#01bf71' }}>Book</span>ar</Icon>
                             <FormH1>{redirectHeading}</FormH1>
                             <Text>You'll be redirected to {pageName} in <span style={{ color: '#01bf71' }}>{countdown} </span>seconds</Text>

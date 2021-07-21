@@ -135,3 +135,28 @@ export const OrderInfo = styled.span`
     min-width: 200px;
 `;
 
+
+export const OrderSignInContainer = styled.div`
+    width: 350px;
+    height: 100%;
+    
+    position: relative;
+
+    z-index: 1;
+
+    padding: 1rem 1rem;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+    
+    align-self: center;
+
+    @media screen and (max-width: 480px) {
+        padding: 32px 32px;
+    }
+
+    //  &:hover {
+    //      transform: scale(1.02);
+    //      transition: all 0.2s ease-in-out;
+    //      cursor: pointer;
+    //  }
+`;

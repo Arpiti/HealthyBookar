@@ -11,9 +11,11 @@ const SignIn = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [submitClicked, setSubmitClicked] = useState(false);
 
     const handleSignIn = e => {
         e.preventDefault();
+        setSubmitClicked(true);
 
         //Firebase Sign In
         auth
@@ -21,22 +23,9 @@ const SignIn = () => {
             .then((auth) => {
                 // console.log(auth)
                 if (auth) {
-                    history.push('/');
-                }
-            })
-            .catch(error => alert(error.message))
-    }
-
-    const registerNewAccount = e => {
-        e.preventDefault();
-
-        //Firebase registration
-        auth
-            .createUserWithEmailAndPassword(email, password)
-            .then((auth) => {
-                //  console.log(auth)
-                if (auth) {
-                    history.push('/');
+                    setTimeout(() => {
+                        history.push('/');
+                    }, 3000);
                 }
             })
             .catch(error => alert(error.message))
@@ -133,7 +122,7 @@ const SignIn = () => {
             <Container>
                 <FormWrap>
                     <FormContent>
-                        <Form action="#">
+                        {submitClicked ?  <RedirectDialogBox redirectHeading={"Logging in, please wait..."} pageName={"your account"} redirectTimeout={5}/> : <Form action="#">
                             <Icon to="/">Healthy<span style={{ color: '#01bf71' }}>Book</span>ar</Icon>
                             <FormH1>Sign in to your account</FormH1>
                             <FormLabel htmlFor="for">Email</FormLabel>
@@ -146,7 +135,7 @@ const SignIn = () => {
                             <FormButtonGoogleSignIn onClick={registerWithGoogle} type="submit">Sign in with Google</FormButtonGoogleSignIn>
                             <FormButtonFacebookSignIn onClick={registerWithFacebook} type="submit">Sign in with Facebook</FormButtonFacebookSignIn>
                             <FormButtonSignUp to="/signup">Create new Account</FormButtonSignUp>
-                        </Form>
+                        </Form>}
                     </FormContent>
                 </FormWrap>
             </Container>

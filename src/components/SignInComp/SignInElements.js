@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import bgImg from '../../images/about.svg';
 
 export const Container = styled.div`
     min-height: 560px;
@@ -10,7 +11,11 @@ export const Container = styled.div`
     top: 0;
     z-index: 0;
     overflow: hidden;
-    background: white;
+    background-image: url(${bgImg});
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: right; 
+    
 `;
 
 export const FormWrap = styled.div`
@@ -50,14 +55,14 @@ export const FormContent = styled.div`
 `;
 
 export const Form = styled.form`
-    background: #010101;
+    background: black;
+    opacity: 0.80;
     max-width: 500px;
-    height: auto;
     width: 100%;
     z-index: 1;
     display: grid;
     margin: 0 auto;
-    padding: 1rem 2rem;
+    padding: 2rem 2rem;
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
 
@@ -89,22 +94,40 @@ export const FormInout = styled.input`
 `;
 
 export const FormButtonSubmit = styled.button`
+    border-radius: 50px;
     background: #01bf71;
-    padding: 16px 0;
+    padding: 6px 0;
+    color: #010606;
+    font-size: 18px;
+    font-weight: 550;
     border: none;
-    border-radius: 4px;
-    font-size: 20px;
     cursor: pointer;
+   
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+
+    &:hover {
+        transition: all 0.2s ease-in-out;
+        background: white;
+    }
 `;
 
 export const FormButtonFacebookSignIn = styled.button`
     background: #4966bc;
+    border-radius: 50px;
     margin-top: 1.5rem;
     padding: 6px 0;
     border: none;
-    border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
+
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+
+    &:hover {
+        transition: all 0.2s ease-in-out;
+        background: #01bf71;
+    }
 `;
 
 export const FormButtonGoogleSignIn = styled.button`
@@ -112,10 +135,18 @@ export const FormButtonGoogleSignIn = styled.button`
     margin-top: 2rem;
     padding: 6px 0;
     border: none;
-    border-radius: 4px;
+    border-radius: 50px;
     font-size: 16px;
     cursor: pointer;
-`;   
+
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+
+    &:hover {
+        transition: all 0.2s ease-in-out;
+        background: #01bf71;
+    }
+`;
 
 export const FormButtonSignUp = styled(Link)`
     background: lightgrey;
@@ -123,11 +154,19 @@ export const FormButtonSignUp = styled(Link)`
     margin-top: 24px;
     padding: 6px 0;
     border: none;
-    border-radius: 4px;
+    border-radius: 50px;
     font-size: 16px;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
+
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+
+    &:hover {
+        transition: all 0.2s ease-in-out;
+        background: #01bf71;
+    }
 `;
 
 export const Text = styled.span`

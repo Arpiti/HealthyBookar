@@ -51,7 +51,7 @@ const Order = ({ order, index, user }) => {
 
 
     return (
-        <>
+        <> 
             {order && <OrderWrap index={index}>
                 {isExpired() ? (<OrderExpiredHeading>Expired Order</OrderExpiredHeading>) : (<OrderActiveHeading>Active Order</OrderActiveHeading>)}
                 <OrderSmallInfo>{order.id}</OrderSmallInfo>
