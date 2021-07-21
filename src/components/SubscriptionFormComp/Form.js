@@ -104,6 +104,7 @@ const Form = () => {
     };
 
     const handleBack = () => {
+        setAnyFormError(false);
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
@@ -115,7 +116,7 @@ const Form = () => {
     const showPriceCalculateMessage = React.useMemo(() => formClicked, [formClicked]);
 
     const [anyFormError, setAnyFormError] = React.useState(false);
-    // console.log('formClicked in Form > ', formClicked);
+     console.log('anyFormError in Form > ', anyFormError);
     // console.log('showPriceCalculateMessage in Form > ', showPriceCalculateMessage);
 
 
@@ -133,7 +134,7 @@ const Form = () => {
                                             <StepLabel>{label}</StepLabel>
                                             <StepContent>
                                                 <Typography>{getStepContent(index, setFormClicked, formClicked, setAnyFormError)}</Typography>
-                                                {!anyFormError && <div className={classes.actionsContainer}>
+                                               <div className={classes.actionsContainer}>
                                                     <div>
                                                         <Button
                                                             disabled={activeStep === 0}
@@ -143,16 +144,16 @@ const Form = () => {
                                                             Back
                                                         </Button>
 
-                                                        <Button
+                                                         {activeStep !== steps.length - 1 && !anyFormError &&  <Button
                                                             variant="contained"
                                                             color="primary"
                                                             onClick={handleNext}
                                                             className={classes.button}
                                                         >
-                                                            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                                                        </Button>
+                                                           Next
+                                                        </Button>}
                                                     </div>
-                                                </div>}
+                                                </div>
                                             </StepContent>
                                         </Step>
                                     ))}

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { FormWrap, PageH1, PageH4, FormInput, FormContainer, FormLabel, FormDropdown, FormRadioContainer, FormDropdownContainer, FormBtnContainer, FormBtn, FormDropdownItem, FormDropdownSelectedItem, FormInputRadio, PageContainer, CartContainer, CartAmount, CartText, CartBtn, CartCouponContainer } from './FormElements';
+import { FormWrap, FormContainer, FormLabel, FormRadioContainer, FormDropdownContainer, FormBtnContainer } from './FormElements';
 
 import FormControl from '@material-ui/core/FormControl';
-import { createMuiTheme, makeStyles, ThemeProvider, withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -13,9 +13,8 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import { FormGroup, Checkbox } from '@material-ui/core';
 import { BREAKFAST, DINNER, LUNCH, MOTHER, BABY, requiredForData, prePostDeliverySelect, CUSTOM, PLAN_TYPE, VEG_PREFERENCE, NON_VEG_PREFERENCE, EGG_PREFERENCE } from './Data';
 import { StateContext, useStateValue } from '../../context/StateContext';
-import { Button, ButtonPress } from '../ButtonElements';
+import { Button } from '../ButtonElements';
 import { calculatePrice } from '../../PricingPlan';
-import { red } from '@material-ui/core/colors';
 
 
 const GreenRadio = withStyles({

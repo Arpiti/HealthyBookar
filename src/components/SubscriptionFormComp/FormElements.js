@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { CardElement } from '@stripe/react-stripe-js';
 
 
 export const PageWrapper = styled.div`
@@ -194,4 +195,10 @@ export const ImgAndTotalContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+`;
+
+export const CardElementHB = styled(CardElement)`
+    padding: 1rem;
+    margin-bottom: 1rem;
+    width: 480px;
 `;

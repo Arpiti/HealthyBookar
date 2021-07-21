@@ -1,7 +1,8 @@
 import { makeStyles, TextField } from '@material-ui/core'
 import React from 'react'
 import MuiPhoneNumber from "material-ui-phone-number";
-import AddressInput from 'material-ui-address-input'
+import AddressInput from 'material-ui-address-input';
+import { useStateValue } from '../../context/StateContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,6 +17,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddressForm = ({ setAnyFormError }) => {
+
+    const [state, dispatch] = useStateValue();
 
     const classes = useStyles();
 
@@ -36,9 +39,22 @@ const AddressForm = ({ setAnyFormError }) => {
         setAddress(address)
     }
 
-   // console.log('contactNumber', contactNumber);
-    if(!fullName || !contactNumber || !address)
+    React.useEffect(() => {
+        dispatch({
+            type: "SET_USER_DETAILS",
+            details: {
+                fullNameForDelivery: fullName,
+                address: address,
+                contactNumber: contactNumber,
+            }
+        })
+    }, [fullName, address, contactNumber]);
+
+    console.log('state', state);
+    if(!fullName || !contactNumber)
         setAnyFormError(true);
+    else
+        setAnyFormError(false);
 
     return (
         <div>
@@ -57,7 +73,6 @@ const AddressForm = ({ setAnyFormError }) => {
                     onChange={handleConNoChange}
                 />
                 <AddressInput
-                    error={!address}
                     onAdd={handleAddAddress}
                     onChange={handleChangeAddress}
                     value={address}

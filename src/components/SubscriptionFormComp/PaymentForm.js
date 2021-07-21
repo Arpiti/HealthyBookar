@@ -2,11 +2,12 @@ import React, { useState, useContext, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import CurrencyFormat from 'react-currency-format';
 import { StateContext } from '../../context/StateContext';
-import { Button } from '../ButtonElements';
+import { Button, ButtonPress } from '../ButtonElements';
 import axios from '../../axios';
 import { useHistory } from 'react-router-dom';
 import { db } from '../../firebase/config';
 import { useStateValue } from '../../context/StateContext';
+import { CardElementHB, FormBtn, FormBtnContainer, FormLabel } from './FormElements';
 
 const PaymentForm = () => {
 
@@ -21,7 +22,7 @@ const PaymentForm = () => {
 
     const [clientSecret, setClientSecret] = useState(true);
 
-    const [{ basket, user }] = useContext(StateContext);
+    const [{ basket, user, userDetails }] = useContext(StateContext);
     const [state, dispatch] = useStateValue();
 
     const history = useHistory();
@@ -29,11 +30,11 @@ const PaymentForm = () => {
     useEffect(() => {
 
         //generate special stripe secret every time there's a change in the cart value
-        const getClientSecret = async() => {
+        const getClientSecret = async () => {
             const response = await axios({
                 // amount is multiplied by 100 as Stripes take payment in Indian paise.
                 method: 'post',
-                url: `/payments/create?total=${totalPrice*100}`
+                url: `/payments/create?total=${totalPrice * 100}`
             });
             setClientSecret(response.data.clientSecret);
         }
@@ -41,23 +42,23 @@ const PaymentForm = () => {
     }, [basket]);
 
     console.log('The secret is >>', clientSecret);
-    
-    const handleSubmit = async(e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setProcessing(true);
 
-       
 
-         const payload = await stripe.confirmCardPayment(clientSecret, {
-             payment_method: {
-                 card: elements.getElement(CardElement)
-             }
-         }).then(({paymentIntent}) => {
-             //paymentIntent = payment confirmation
-             console.log('Basket is', basket);
-             const items = basket; 
 
-             db
+        const payload = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: elements.getElement(CardElement)
+            }
+        }).then(({ paymentIntent }) => {
+            //paymentIntent = payment confirmation
+            console.log('Basket is', basket);
+            const items = basket;
+
+            db
                 .collection('users')
                 .doc(user?.uid)
                 .collection('orders')
@@ -68,15 +69,26 @@ const PaymentForm = () => {
                     created: paymentIntent.created
                 })
 
-             setSucceeded(true);
-             setError(null);
-             setProcessing(null);
+            db
+                .collection('users')
+                .doc(user?.uid)
+                .collection('userDeliveryDetails')
+                .doc(userDetails.fullNameForDelivery)
+                .set({
+                    fullNameForDelivery: userDetails.fullNameForDelivery,
+                    address: userDetails.address,
+                    contactNumber: userDetails.contactNumber,
+                });
 
-             dispatch({
-                 type: 'EMPTY_BASKET'
-             })
-             history.replace('/order')
-         }) 
+            setSucceeded(true);
+            setError(null);
+            setProcessing(null);
+
+            dispatch({
+                type: 'EMPTY_BASKET'
+            })
+            history.replace('/order')
+        })
     }
 
     const handleCardChange = (event) => {
@@ -94,11 +106,11 @@ const PaymentForm = () => {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <CardElement onChange={handleCardChange} />
+                <CardElementHB onChange={handleCardChange} />
                 <div>
                     <CurrencyFormat renderText={(value) => (
                         <>
-                           <h4> Order Total: {value}</h4>
+                            <FormLabel> Order Total: {value}</FormLabel>
                         </>
                     )}
                         decimalScale={2}
@@ -108,9 +120,12 @@ const PaymentForm = () => {
                         prefix={"₹"}>
 
                     </CurrencyFormat>
-                    <button disabled={processing || disabled || succeeded}>
-                        <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
-                    </button>
+
+                    <FormBtnContainer>
+                        <FormBtn disabled={processing || disabled || succeeded}>
+                            <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
+                        </FormBtn>
+                    </FormBtnContainer>
                 </div>
                 {error && <div>{error}</div>}
             </form>
