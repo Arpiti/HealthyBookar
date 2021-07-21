@@ -66,15 +66,7 @@ const PaymentForm = () => {
                 .set({
                     basket: basket[0],
                     amount: paymentIntent.amount,
-                    created: paymentIntent.created
-                })
-
-            db
-                .collection('users')
-                .doc(user?.uid)
-                .collection('userDeliveryDetails')
-                .doc(userDetails.fullNameForDelivery)
-                .set({
+                    created: paymentIntent.created,
                     fullNameForDelivery: userDetails.fullNameForDelivery,
                     address: userDetails.address,
                     contactNumber: userDetails.contactNumber,
@@ -87,6 +79,7 @@ const PaymentForm = () => {
             dispatch({
                 type: 'EMPTY_BASKET'
             })
+
             history.replace('/order')
         })
     }

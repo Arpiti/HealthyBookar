@@ -122,7 +122,7 @@ const SignIn = () => {
             <Container>
                 <FormWrap>
                     <FormContent>
-                        {submitClicked ?  <RedirectDialogBox redirectHeading={"Logging in, please wait..."} pageName={"your account"} redirectTimeout={5}/> : <Form action="#">
+                        {submitClicked ? <RedirectDialogBox redirectHeading={"Logging in, please wait..."} pageName={"your account"} redirectTimeout={5} /> : <Form action="#">
                             <Icon to="/">Healthy<span style={{ color: '#01bf71' }}>Book</span>ar</Icon>
                             <FormH1>Sign in to your account</FormH1>
                             <FormLabel htmlFor="for">Email</FormLabel>
