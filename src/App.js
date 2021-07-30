@@ -1,21 +1,17 @@
 
 import './App.css';
-import Header from './components/Header';
 import Home from './pages/Home';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Checkout from './components/Checkout';
-import Login from './components/Login';
 import { auth } from './firebase/config';
 import { useContext, useEffect } from 'react';
 import { StateContext } from './context/StateContext';
-import Payment from './components/Payment';
 import SignInPage from './pages/SignInPage';
 import FaqPage from './pages/FaqPage';
 import SubscribePage from './pages/CreateSubscription';
 import ForgotPasswordPage from './pages/ForgotPassword';
 import SignUpPage from './components/SignInComp/SignUp';
 import OrderPage from './pages/OrderPage';
-
+import PaymentConfirmPage from './pages/PaymentConfirm';
 
 
 
@@ -64,20 +60,9 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
-          {/* <Route path="/login">
-            <Login/> 
-          </Route>
-          <Route path="/checkout">
-            <Header />
-            <Checkout/>
-          </Route>
-          <Route path="/payment">
-            <Payment/>
-          </Route> */}
+ 
           <Route path="/" exact>
             <Home />
-            {/* <Header />
-            <Home /> */}
           </Route>
 
           <Route path="/signin" component={SignInPage} exact />
@@ -86,6 +71,8 @@ function App() {
           <Route path="/forgotPassword" component={ForgotPasswordPage} exact />
           <Route path="/signup" component={SignUpPage} exact />
           <Route path="/order" component={OrderPage} exact />
+          <Route path="/paymentConfirm" component={PaymentConfirmPage} exact />
+
         </Switch>
       </div>
     </Router>

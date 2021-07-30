@@ -80,7 +80,7 @@ const PaymentForm = () => {
                 type: 'EMPTY_BASKET'
             })
 
-            history.replace('/order')
+            history.replace('/paymentConfirm');
         })
     }
 

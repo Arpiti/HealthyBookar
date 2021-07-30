@@ -16,8 +16,9 @@ function HeroSection() {
                     <VideoBg autoPlay loop muted src={Video} type='vide/mp4' />
                 </HeroBg>
                 <HeroContent>
-                    <HeroH1> Nutritious Food Made Easy</HeroH1>
-                    <HeroP> SignUp for a new account today and receive Rs 250/- off on your first subscription. </HeroP>
+                    <HeroH1> Healthy Mother = Healthy Baby</HeroH1>
+                    <HeroP> Eat healthy Nutritious food during the pregnancy, it helps for baby growth in the womb.
+                        Thinking will not make you healthy. Eating Healthy Bookar food make you healthy.</HeroP>
                     <HeroBtnWrapper>
                         <Button to='services'
                             smooth={true}

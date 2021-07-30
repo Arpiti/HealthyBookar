@@ -21,7 +21,7 @@ const Footer = () => {
     return (
         <FooterContainer>
             <FooterWrap>
-                {/* <FooterLinksContainer>
+                 <FooterLinksContainer>
                     <FooterLinksWrapper>
                         <FooterLinkItems>
                             <FooterLinkTitle> About Us </FooterLinkTitle>
@@ -48,7 +48,7 @@ const Footer = () => {
                             <FooterLink to="/signin">Twitter</FooterLink>
                         </FooterLinkItems>
                     </FooterLinksWrapper>
-                </FooterLinksContainer> */}
+                </FooterLinksContainer> 
 
                 <SocialMedia>
                     <SocialMediaWrap>

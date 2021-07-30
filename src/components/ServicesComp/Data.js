@@ -1,6 +1,6 @@
-import Icon1 from '../../images/3_month_image.png';
-import Icon2 from '../../images/6_month_image.png';
-import Icon3 from '../../images/baby.png';
+import Icon1 from '../../images/pregnant.png';
+import Icon2 from '../../images/mother.png';
+import Icon3 from '../../images/baby-boy.png';
 
 const RECOMMENDED_PLAN_TYPE_1 = '3MonthsPostDeliveryMother';
 const RECOMMENDED_PLAN_TYPE_2 = '6MonthsPreDeliveryMother';
@@ -17,8 +17,8 @@ export const servicesData = {
     topLine: 'Our Offerings',
     mainHeading: 'Food Subscriptions',
     cardIcon1: Icon1,
-    cardHeading1: "3 months",
-    cardInfo1: "Nutriotious food for mothers to keep them healthy and strong in their motherhood.",
+    cardHeading1: "3 Months Plan",
+    cardInfo1: "Pregnancy nutritious food (during the pregnancy)",
     cardLink1: "/subscribe",
     item1: {
         id: RECOMMENDED_PLAN_TYPE_1,
@@ -34,8 +34,8 @@ export const servicesData = {
         paused: false
     },
     cardIcon2: Icon2,
-    cardHeading2: "6 months",
-    cardInfo2: "Nutriotious food for mothers to keep them healthy and strong in their motherhood.",
+    cardHeading2: "6 Months Plan",
+    cardInfo2: "Post pregnancy nutritious food",
     cardLink2: "/subscribe",
     item2: {
         id: RECOMMENDED_PLAN_TYPE_2,
@@ -51,8 +51,8 @@ export const servicesData = {
         paused: false
     },
     cardIcon3: Icon3,
-    cardHeading3: "Baby Food",
-    cardInfo3: `Nutriotious food for babies to help them build the immunity and be fit like their parents.`,
+    cardHeading3: "Custom Nutrition Plan",
+    cardInfo3: `Baby Nutritious food for the new born`,
     cardLink3: "/subscribe",
     item3: {
         id: RECOMMENDED_PLAN_TYPE_3,
