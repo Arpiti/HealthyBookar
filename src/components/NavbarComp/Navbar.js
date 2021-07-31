@@ -68,33 +68,29 @@ const Navbar = ({ toggle }) => {
                     <NavMenu>
                         <NavItem>
                             <NavLinks to='about'
-                                smooth={true}
+                                smooth='true'
                                 duration={500}
-                                spy={true}
                                 exact='true'
                                 offset={-80}>About</NavLinks>
                         </NavItem>
                         <NavItem>
                             <NavLinks to='services'
-                                smooth={true}
+                                smooth='true'
                                 duration={500}
-                                spy={true}
                                 exact='true'
                                 offset={-80}>Services</NavLinks>
                         </NavItem>
                         <NavItem>
                             <NavLinks to='discover'
-                                smooth={true}
+                                smooth='true'
                                 duration={500}
-                                spy={true}
                                 exact='true'
                                 offset={-80}>Discover</NavLinks>
                         </NavItem>
                         <NavItem>
                             <NavLinkRoute to="/faq"
-                                smooth={true}
+                                smooth='true'
                                 duration={500}
-                                spy={true}
                                 exact='true'
                                 offset={-80}>FAQs</NavLinkRoute>
                         </NavItem>
@@ -112,17 +108,17 @@ const Navbar = ({ toggle }) => {
                         <NavBtn onClick={handleAuthentication}>
                             {user ?
 
-                                <NavBtnLink
-                                    smooth={true}
+                                <NavBtnLink to="/"
+                                    smooth='true'
                                     duration={500}
-                                    spy={true}
+
                                     exact='true'
                                     offset={-80}>Sign Out</NavBtnLink>
                                 :
                                 <NavBtnLink to="/signin"
-                                    smooth={true}
+                                    smooth='true'
                                     duration={500}
-                                    spy={true}
+
                                     exact='true'
                                     offset={-80}>Sign In</NavBtnLink>
 

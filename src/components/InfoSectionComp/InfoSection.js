@@ -1,12 +1,9 @@
-import { duration } from '@material-ui/core';
 import React from 'react'
 import { useStateValue } from '../../context/StateContext';
 import { calculatePrice } from '../../PricingPlan';
 import { Button, ButtonNavigate } from '../ButtonElements';
 import {InfoContainer, InfoWrapper, InfoRow, Column1, TextWrapper, TopLine, Heading, Subtitle, BtnWrap, Column2,
 ImgWrap, Img} from './InfoSectionElements';
-
-import RedirectDialogBox from '../SignInComp/RedirectDialogBox';
 
 
 const InfoSection = ({lightBg, name, imgStart, topLine, lightText, headline, darkText, description, buttonLabel, img, alt, primary, dark, dark2, isButtonScroll, linkTo, item}) => {
@@ -50,9 +47,8 @@ const InfoSection = ({lightBg, name, imgStart, topLine, lightText, headline, dar
                                 <Subtitle darkText={darkText}>{description}</Subtitle>
                                 <BtnWrap>
                                     {isButtonScroll && <Button to = {linkTo} 
-                                        smooth={true}
+                                        smooth='true'
                                         duration={500}
-                                        spy={true}
                                         exact="true"
                                         offset={-80}
                                         primary={primary ? 1 : 0}
@@ -64,9 +60,8 @@ const InfoSection = ({lightBg, name, imgStart, topLine, lightText, headline, dar
                                     {!isButtonScroll && item && <ButtonNavigate 
                                         onClick = {addToBasket}
                                         to = {linkTo} 
-                                        smooth={true}
+                                        smooth='true'
                                         duration={500}
-                                        spy={true}
                                         exact="true"
                                         offset={-80}
                                         primary={primary ? 1 : 0}

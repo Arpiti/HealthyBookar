@@ -21,9 +21,8 @@ function HeroSection() {
                         Thinking will not make you healthy. Eating Healthy Bookar food make you healthy.</HeroP>
                     <HeroBtnWrapper>
                         <Button to='services'
-                            smooth={true}
+                            smooth='true'
                             duration={500}
-                            spy={true}
                             exact='true'
                             offset={-80}
                             onMouseEnter={onHover}

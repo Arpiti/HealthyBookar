@@ -17,7 +17,7 @@ import PaymentConfirmPage from './pages/PaymentConfirm';
 
 function App() {
 
-  const [{userNameEntered}, dispatch] = useContext(StateContext);
+  const [{ userNameEntered }, dispatch] = useContext(StateContext);
 
   useEffect(() => {
     auth.onAuthStateChanged(authUser => {
@@ -28,13 +28,13 @@ function App() {
 
         // adding username to the authuser Displayname if the account is created using Forms with Name out of Name column
         if (authUser.displayName === null || authUser.displayName === 'undefined') {
-        
+
           //console.log('authUser display namusere is null >>', authUser.displayName);
           authUser.updateProfile({
             displayName: `${userNameEntered}`,
           }).then(() => {
             // Update successful
-             //console.log('User after update is >>>', authUser.displayName);
+            //console.log('User after update is >>>', authUser.displayName);
             // ...
           }).catch((error) => {
             // An error occurred
@@ -60,7 +60,7 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
- 
+
           <Route path="/" exact>
             <Home />
           </Route>
